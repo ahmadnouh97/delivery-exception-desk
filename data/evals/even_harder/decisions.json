@@ -1,0 +1,98 @@
+[
+  {
+    "case_id": "DED-4001",
+    "action": "no_action",
+    "refund_sar": 0,
+    "requires_review": false,
+    "policy_ref": "P1",
+    "rationale": "Verified history confirms a completed refund for this missing delivery. The proof mismatch and the customer's uncertainty do not reopen the resolved issue.",
+    "difficulty": "manual",
+    "needs": [
+      "resolution_history"
+    ],
+    "tiny": true
+  },
+  {
+    "case_id": "DED-4002",
+    "action": "no_action",
+    "refund_sar": 0,
+    "requires_review": false,
+    "policy_ref": "P1",
+    "rationale": "Verified history confirms a replacement was completed for this return. The original's later warehouse receipt does not call for another replacement or approval.",
+    "difficulty": "manual",
+    "needs": [
+      "resolution_history"
+    ],
+    "tiny": true
+  },
+  {
+    "case_id": "DED-4003",
+    "action": "open_carrier_investigation",
+    "refund_sar": 0,
+    "requires_review": false,
+    "policy_ref": "P2",
+    "rationale": "The history shows the same-issue refund is pending, so P1 does not apply. The delivered scan is more than 24 hours old and the signature is inconclusive, so open a carrier investigation.",
+    "difficulty": "manual",
+    "needs": [
+      "resolution_history"
+    ],
+    "tiny": true
+  },
+  {
+    "case_id": "DED-4004",
+    "action": "request_information",
+    "refund_sar": 0,
+    "requires_review": false,
+    "policy_ref": "P4",
+    "rationale": "The completed refund in history is unrelated to this return. Warehouse receipt and stock make a replacement possible, but support must first confirm the new address.",
+    "difficulty": "manual",
+    "needs": [
+      "resolution_history"
+    ],
+    "tiny": true
+  },
+  {
+    "case_id": "DED-4005",
+    "action": "refund",
+    "refund_sar": 500.01,
+    "requires_review": true,
+    "policy_ref": "P5",
+    "rationale": "The warehouse receipt supersedes the customer's older depot update. The explicit refund request takes precedence over address confirmation, and the full SAR 500.01 requires supervisor review.",
+    "difficulty": "hard",
+    "needs": [],
+    "tiny": true
+  },
+  {
+    "case_id": "DED-4006",
+    "action": "open_carrier_investigation",
+    "refund_sar": 0,
+    "requires_review": false,
+    "policy_ref": "P2",
+    "rationale": "The photo matches, but the customer still reports the parcel missing. The driver call was a follow-up, and the only delivered scan is 32 hours 15 minutes old.",
+    "difficulty": "hard",
+    "needs": [],
+    "tiny": false
+  },
+  {
+    "case_id": "DED-4007",
+    "action": "wait_for_update",
+    "refund_sar": 0,
+    "requires_review": false,
+    "policy_ref": "P3",
+    "rationale": "The return is still at the carrier depot. Warehouse receipt must occur before the refund request, stock availability, or order value can determine the next decision.",
+    "difficulty": "hard",
+    "needs": [],
+    "tiny": false
+  },
+  {
+    "case_id": "DED-4008",
+    "action": "refund",
+    "refund_sar": 500,
+    "requires_review": false,
+    "policy_ref": "P4",
+    "rationale": "The warehouse has received the parcel and no replacement is available. Refund the full SAR 500 without waiting for the new address. Supervisor review is required only above SAR 500.",
+    "difficulty": "hard",
+    "needs": [],
+    "tiny": false
+  }
+]

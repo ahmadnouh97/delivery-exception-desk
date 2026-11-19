@@ -1,0 +1,29 @@
+[
+  {
+    "handler_id": "DED-H001",
+    "display_name": "Maha A.",
+    "role": "support_agent",
+    "languages": [
+      "ar",
+      "en"
+    ]
+  },
+  {
+    "handler_id": "DED-H002",
+    "display_name": "Rami K.",
+    "role": "support_agent",
+    "languages": [
+      "en",
+      "ar"
+    ]
+  },
+  {
+    "handler_id": "DED-H003",
+    "display_name": "Noura S.",
+    "role": "supervisor",
+    "languages": [
+      "ar",
+      "en"
+    ]
+  }
+]

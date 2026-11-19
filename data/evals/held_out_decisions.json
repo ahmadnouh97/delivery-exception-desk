@@ -1,0 +1,560 @@
+[
+  {
+    "case_id": "DED-1001",
+    "action": "wait_for_update",
+    "refund_sar": 0,
+    "requires_review": false,
+    "policy_ref": "P2",
+    "rationale": "The delivery scan is 36 minutes old and no proof is available to establish a mismatch.",
+    "difficulty": "routine",
+    "needs": [],
+    "tiny": true
+  },
+  {
+    "case_id": "DED-1002",
+    "action": "refund",
+    "refund_sar": 649,
+    "requires_review": true,
+    "policy_ref": "P5",
+    "rationale": "The warehouse received the lamp and the customer requested SAR 679. Refund the SAR 649 order total, which requires review.",
+    "difficulty": "hard",
+    "needs": [],
+    "tiny": true
+  },
+  {
+    "case_id": "DED-1003",
+    "action": "open_carrier_investigation",
+    "refund_sar": 0,
+    "requires_review": false,
+    "policy_ref": "P2",
+    "rationale": "The doorstep photo shows a confirmed entrance mismatch, which triggers an immediate investigation.",
+    "difficulty": "hard",
+    "needs": [],
+    "tiny": true
+  },
+  {
+    "case_id": "DED-1004",
+    "action": "request_information",
+    "refund_sar": 0,
+    "requires_review": false,
+    "policy_ref": "P4",
+    "rationale": "The warehouse has received the parcel and a replacement is in stock. The new address needs confirmation before reshipment.",
+    "difficulty": "routine",
+    "needs": [],
+    "tiny": true
+  },
+  {
+    "case_id": "DED-1005",
+    "action": "open_carrier_investigation",
+    "refund_sar": 0,
+    "requires_review": false,
+    "policy_ref": "P2",
+    "rationale": "The delivery scan is exactly 24 hours old, so the waiting window has ended.",
+    "difficulty": "hard",
+    "needs": [],
+    "tiny": false
+  },
+  {
+    "case_id": "DED-1006",
+    "action": "wait_for_update",
+    "refund_sar": 0,
+    "requires_review": false,
+    "policy_ref": "P2",
+    "rationale": "The signature is inconclusive and 23 hours 59 minutes have elapsed since the delivery scan.",
+    "difficulty": "hard",
+    "needs": [],
+    "tiny": false
+  },
+  {
+    "case_id": "DED-1007",
+    "action": "replace",
+    "refund_sar": 0,
+    "requires_review": false,
+    "policy_ref": "P4",
+    "rationale": "The warehouse has the return, stock and address are confirmed, and SAR 500 is within the standard approval limit.",
+    "difficulty": "hard",
+    "needs": [],
+    "tiny": false
+  },
+  {
+    "case_id": "DED-1008",
+    "action": "replace",
+    "refund_sar": 0,
+    "requires_review": true,
+    "policy_ref": "P5",
+    "rationale": "The parcel has been received and can be replaced at the confirmed address. SAR 500.01 exceeds the review threshold.",
+    "difficulty": "hard",
+    "needs": [],
+    "tiny": false
+  },
+  {
+    "case_id": "DED-1009",
+    "action": "no_action",
+    "refund_sar": 0,
+    "requires_review": false,
+    "policy_ref": "P1",
+    "rationale": "The resolution history confirms a completed refund for the same item and issue. It takes precedence over the proof mismatch.",
+    "difficulty": "manual",
+    "needs": [
+      "resolution_history"
+    ],
+    "tiny": true
+  },
+  {
+    "case_id": "DED-1010",
+    "action": "wait_for_update",
+    "refund_sar": 0,
+    "requires_review": false,
+    "policy_ref": "P3",
+    "rationale": "The return is still in transit. The explicit refund request can be acted on after a warehouse receipt scan.",
+    "difficulty": "routine",
+    "needs": [],
+    "tiny": false
+  },
+  {
+    "case_id": "DED-1011",
+    "action": "open_carrier_investigation",
+    "refund_sar": 0,
+    "requires_review": false,
+    "policy_ref": "P2",
+    "rationale": "The customer confirms the location in the photo, but the parcel is still missing more than 24 hours after the delivery scan.",
+    "difficulty": "routine",
+    "needs": [],
+    "tiny": false
+  },
+  {
+    "case_id": "DED-1012",
+    "action": "wait_for_update",
+    "refund_sar": 0,
+    "requires_review": false,
+    "policy_ref": "P2",
+    "rationale": "The later delivered scan is 23 hours 59 minutes old. With no contradictory proof, the latest scan still falls within the waiting window.",
+    "difficulty": "hard",
+    "needs": [],
+    "tiny": false
+  },
+  {
+    "case_id": "DED-1013",
+    "action": "refund",
+    "refund_sar": 179,
+    "requires_review": false,
+    "policy_ref": "P4",
+    "rationale": "The warehouse received the parcel and the requested replacement is out of stock, so the full SAR 179 is refundable.",
+    "difficulty": "hard",
+    "needs": [],
+    "tiny": false
+  },
+  {
+    "case_id": "DED-1014",
+    "action": "open_carrier_investigation",
+    "refund_sar": 0,
+    "requires_review": false,
+    "policy_ref": "P2",
+    "rationale": "The delivery scan is more than 24 hours old and the carrier has no proof on file.",
+    "difficulty": "routine",
+    "needs": [],
+    "tiny": false
+  },
+  {
+    "case_id": "DED-1015",
+    "action": "no_action",
+    "refund_sar": 0,
+    "requires_review": false,
+    "policy_ref": "P1",
+    "rationale": "The resolution history confirms a replacement for the same return. The warehouse receipt of the original parcel does not require another replacement.",
+    "difficulty": "manual",
+    "needs": [
+      "resolution_history"
+    ],
+    "tiny": false
+  },
+  {
+    "case_id": "DED-1016",
+    "action": "wait_for_update",
+    "refund_sar": 0,
+    "requires_review": false,
+    "policy_ref": "P2",
+    "rationale": "The close-up cannot establish the delivery location. The scan is 2 hours 33 minutes old.",
+    "difficulty": "routine",
+    "needs": [],
+    "tiny": false
+  },
+  {
+    "case_id": "DED-1017",
+    "action": "refund",
+    "refund_sar": 500,
+    "requires_review": false,
+    "policy_ref": "P4",
+    "rationale": "Warehouse receipt is confirmed and the customer requests SAR 535. Refund the SAR 500 order total, which does not require review. No delivery address is needed.",
+    "difficulty": "hard",
+    "needs": [],
+    "tiny": false
+  },
+  {
+    "case_id": "DED-1018",
+    "action": "wait_for_update",
+    "refund_sar": 0,
+    "requires_review": false,
+    "policy_ref": "P3",
+    "rationale": "The parcel is at a carrier depot awaiting a warehouse-bound run. The retailer has yet to confirm receipt.",
+    "difficulty": "hard",
+    "needs": [],
+    "tiny": false
+  },
+  {
+    "case_id": "DED-1019",
+    "action": "wait_for_update",
+    "refund_sar": 0,
+    "requires_review": false,
+    "policy_ref": "P2",
+    "rationale": "The delivery code matches and the scan is 53 minutes old. The customer still reports a missing parcel, so the waiting window applies.",
+    "difficulty": "hard",
+    "needs": [],
+    "tiny": false
+  },
+  {
+    "case_id": "DED-1020",
+    "action": "replace",
+    "refund_sar": 0,
+    "requires_review": false,
+    "policy_ref": "P4",
+    "rationale": "Warehouse receipt is confirmed, stock is available and the address is confirmed. The customer still wants the item and did not request a refund.",
+    "difficulty": "routine",
+    "needs": [],
+    "tiny": false
+  },
+  {
+    "case_id": "DED-1021",
+    "action": "open_carrier_investigation",
+    "refund_sar": 0,
+    "requires_review": false,
+    "policy_ref": "P2",
+    "rationale": "The signature cannot establish the recipient and the delivery scan is more than 24 hours old.",
+    "difficulty": "routine",
+    "needs": [],
+    "tiny": false
+  },
+  {
+    "case_id": "DED-1022",
+    "action": "request_information",
+    "refund_sar": 0,
+    "requires_review": false,
+    "policy_ref": "P4",
+    "rationale": "The retailer has the parcel and can replace it from stock. It needs a confirmed delivery address first.",
+    "difficulty": "routine",
+    "needs": [],
+    "tiny": false
+  },
+  {
+    "case_id": "DED-1023",
+    "action": "open_carrier_investigation",
+    "refund_sar": 0,
+    "requires_review": false,
+    "policy_ref": "P2",
+    "rationale": "The locker operator confirms the proof refers to a different site. The mismatch warrants immediate investigation.",
+    "difficulty": "hard",
+    "needs": [],
+    "tiny": false
+  },
+  {
+    "case_id": "DED-1024",
+    "action": "open_carrier_investigation",
+    "refund_sar": 0,
+    "requires_review": false,
+    "policy_ref": "P2",
+    "rationale": "The delivered scan is more than 24 hours old. Open a carrier investigation even though the customer requests a SAR 200 refund.",
+    "difficulty": "hard",
+    "needs": [],
+    "tiny": false
+  },
+  {
+    "case_id": "DED-1025",
+    "action": "wait_for_update",
+    "refund_sar": 0,
+    "requires_review": false,
+    "policy_ref": "P3",
+    "rationale": "The oversized return is still at the carrier depot. Wait for retailer receipt before considering the refund request or stock status.",
+    "difficulty": "hard",
+    "needs": [],
+    "tiny": false
+  },
+  {
+    "case_id": "DED-1026",
+    "action": "wait_for_update",
+    "refund_sar": 0,
+    "requires_review": false,
+    "policy_ref": "P2",
+    "rationale": "The handoff record cannot establish the recipient, and the delivery scan is only 21 minutes old.",
+    "difficulty": "routine",
+    "needs": [],
+    "tiny": false
+  },
+  {
+    "case_id": "DED-1027",
+    "action": "open_carrier_investigation",
+    "refund_sar": 0,
+    "requires_review": false,
+    "policy_ref": "P2",
+    "rationale": "The photo identifies a different parcel, which requires an investigation as soon as the mismatch is established.",
+    "difficulty": "hard",
+    "needs": [],
+    "tiny": false
+  },
+  {
+    "case_id": "DED-1028",
+    "action": "refund",
+    "refund_sar": 212.75,
+    "requires_review": false,
+    "policy_ref": "P4",
+    "rationale": "The warehouse received the item. The customer's current instruction is to refund the order, so return the full SAR 212.75.",
+    "difficulty": "routine",
+    "needs": [],
+    "tiny": false
+  },
+  {
+    "case_id": "DED-1029",
+    "action": "no_action",
+    "refund_sar": 0,
+    "requires_review": false,
+    "policy_ref": "P1",
+    "rationale": "The resolution history confirms a completed refund for the same item and issue. The later notification does not require a second action.",
+    "difficulty": "manual",
+    "needs": [
+      "resolution_history"
+    ],
+    "tiny": false
+  },
+  {
+    "case_id": "DED-1030",
+    "action": "open_carrier_investigation",
+    "refund_sar": 0,
+    "requires_review": false,
+    "policy_ref": "P2",
+    "rationale": "The image cannot identify where the parcel was left. The delivery scan is 24 hours and one minute old.",
+    "difficulty": "hard",
+    "needs": [],
+    "tiny": false
+  },
+  {
+    "case_id": "DED-1031",
+    "action": "wait_for_update",
+    "refund_sar": 0,
+    "requires_review": false,
+    "policy_ref": "P2",
+    "rationale": "The latest delivered scan is 27 minutes old and no proof establishes a mismatch.",
+    "difficulty": "hard",
+    "needs": [],
+    "tiny": false
+  },
+  {
+    "case_id": "DED-1032",
+    "action": "wait_for_update",
+    "refund_sar": 0,
+    "requires_review": false,
+    "policy_ref": "P3",
+    "rationale": "Carrier scans show the parcel travelling back. Warehouse receipt has yet to be confirmed.",
+    "difficulty": "routine",
+    "needs": [],
+    "tiny": false
+  },
+  {
+    "case_id": "DED-1033",
+    "action": "request_information",
+    "refund_sar": 0,
+    "requires_review": false,
+    "policy_ref": "P4",
+    "rationale": "Warehouse receipt and replacement stock are confirmed, but the customer says the saved delivery address should not be used.",
+    "difficulty": "routine",
+    "needs": [],
+    "tiny": false
+  },
+  {
+    "case_id": "DED-1034",
+    "action": "open_carrier_investigation",
+    "refund_sar": 0,
+    "requires_review": false,
+    "policy_ref": "P2",
+    "rationale": "The unverified delivered scan is more than 24 hours old. The next action is investigation despite the request for a replacement on a high-value order.",
+    "difficulty": "hard",
+    "needs": [],
+    "tiny": false
+  },
+  {
+    "case_id": "DED-1035",
+    "action": "no_action",
+    "refund_sar": 0,
+    "requires_review": false,
+    "policy_ref": "P1",
+    "rationale": "The resolution history confirms a replacement for the same missing item. The automated reminder does not warrant another action.",
+    "difficulty": "manual",
+    "needs": [
+      "resolution_history"
+    ],
+    "tiny": false
+  },
+  {
+    "case_id": "DED-1036",
+    "action": "replace",
+    "refund_sar": 0,
+    "requires_review": false,
+    "policy_ref": "P4",
+    "rationale": "Warehouse receipt is confirmed, stock is available and the shipping address remains confirmed. A replacement can proceed.",
+    "difficulty": "routine",
+    "needs": [],
+    "tiny": false
+  },
+  {
+    "case_id": "DED-1037",
+    "action": "refund",
+    "refund_sar": 529.5,
+    "requires_review": true,
+    "policy_ref": "P5",
+    "rationale": "The received return carries an explicit refund request that supersedes the customer's earlier preference. SAR 529.50 requires review.",
+    "difficulty": "hard",
+    "needs": [],
+    "tiny": false
+  },
+  {
+    "case_id": "DED-1038",
+    "action": "wait_for_update",
+    "refund_sar": 0,
+    "requires_review": false,
+    "policy_ref": "P2",
+    "rationale": "The recipient code matches and fewer than 24 hours have elapsed since the delivery scan.",
+    "difficulty": "routine",
+    "needs": [],
+    "tiny": false
+  },
+  {
+    "case_id": "DED-1039",
+    "action": "open_carrier_investigation",
+    "refund_sar": 0,
+    "requires_review": false,
+    "policy_ref": "P2",
+    "rationale": "The actual delivery scan is more than 24 hours old. The later alert does not reset the scan time.",
+    "difficulty": "hard",
+    "needs": [],
+    "tiny": false
+  },
+  {
+    "case_id": "DED-1040",
+    "action": "wait_for_update",
+    "refund_sar": 0,
+    "requires_review": false,
+    "policy_ref": "P3",
+    "rationale": "The carrier completed its local leg. Warehouse receipt is still absent, so the refund request and stock status do not advance the return.",
+    "difficulty": "hard",
+    "needs": [],
+    "tiny": false
+  },
+  {
+    "case_id": "DED-1041",
+    "action": "replace",
+    "refund_sar": 0,
+    "requires_review": true,
+    "policy_ref": "P5",
+    "rationale": "The item can be replaced after warehouse receipt, but the SAR 648 order requires supervisor review.",
+    "difficulty": "hard",
+    "needs": [],
+    "tiny": false
+  },
+  {
+    "case_id": "DED-1042",
+    "action": "open_carrier_investigation",
+    "refund_sar": 0,
+    "requires_review": false,
+    "policy_ref": "P2",
+    "rationale": "The linked signature belongs to another shipment, so an investigation is due immediately.",
+    "difficulty": "hard",
+    "needs": [],
+    "tiny": false
+  },
+  {
+    "case_id": "DED-1043",
+    "action": "wait_for_update",
+    "refund_sar": 0,
+    "requires_review": false,
+    "policy_ref": "P2",
+    "rationale": "The photo matches the designated drop-off location and the delivery scan is 1 hour 11 minutes old.",
+    "difficulty": "routine",
+    "needs": [],
+    "tiny": false
+  },
+  {
+    "case_id": "DED-1044",
+    "action": "request_information",
+    "refund_sar": 0,
+    "requires_review": false,
+    "policy_ref": "P4",
+    "rationale": "A replacement is in stock, but the address is unconfirmed. Request address confirmation before a replacement is proposed for review.",
+    "difficulty": "hard",
+    "needs": [],
+    "tiny": false
+  },
+  {
+    "case_id": "DED-1045",
+    "action": "refund",
+    "refund_sar": 289,
+    "requires_review": false,
+    "policy_ref": "P4",
+    "rationale": "The original parcel has been received, but replacement stock is unavailable. Refund the full SAR 289.",
+    "difficulty": "hard",
+    "needs": [],
+    "tiny": false
+  },
+  {
+    "case_id": "DED-1046",
+    "action": "wait_for_update",
+    "refund_sar": 0,
+    "requires_review": false,
+    "policy_ref": "P2",
+    "rationale": "Proof matches the assigned parcel room and the delivery scan is less than two hours old.",
+    "difficulty": "routine",
+    "needs": [],
+    "tiny": false
+  },
+  {
+    "case_id": "DED-1047",
+    "action": "open_carrier_investigation",
+    "refund_sar": 0,
+    "requires_review": false,
+    "policy_ref": "P2",
+    "rationale": "The photo matches the assigned landing and more than 24 hours have elapsed. Stock availability does not affect the investigation decision.",
+    "difficulty": "routine",
+    "needs": [],
+    "tiny": false
+  },
+  {
+    "case_id": "DED-1048",
+    "action": "refund",
+    "refund_sar": 601,
+    "requires_review": true,
+    "policy_ref": "P5",
+    "rationale": "Warehouse receipt is confirmed and replacement stock is unavailable, so refund SAR 601. The refund takes precedence over confirming an address and requires review.",
+    "difficulty": "hard",
+    "needs": [],
+    "tiny": false
+  },
+  {
+    "case_id": "DED-1049",
+    "action": "wait_for_update",
+    "refund_sar": 0,
+    "requires_review": false,
+    "policy_ref": "P3",
+    "rationale": "The parcel is on its return route. A retailer warehouse scan is needed before deciding on a replacement.",
+    "difficulty": "routine",
+    "needs": [],
+    "tiny": false
+  },
+  {
+    "case_id": "DED-1050",
+    "action": "replace",
+    "refund_sar": 0,
+    "requires_review": false,
+    "policy_ref": "P4",
+    "rationale": "The customer requests a refund only if stock is unavailable. Stock is available, the address is confirmed and SAR 499.99 does not require review.",
+    "difficulty": "hard",
+    "needs": [],
+    "tiny": false
+  }
+]

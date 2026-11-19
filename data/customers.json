@@ -1,0 +1,98 @@
+[
+  {
+    "customer_id": "DED-CUST-0001",
+    "display_name": "لولوة ز.",
+    "preferred_language": "ar",
+    "city": "Riyadh"
+  },
+  {
+    "customer_id": "DED-CUST-0002",
+    "display_name": "Miren F.",
+    "preferred_language": "en",
+    "city": "Jeddah"
+  },
+  {
+    "customer_id": "DED-CUST-0003",
+    "display_name": "مهند ف.",
+    "preferred_language": "ar",
+    "city": "Dammam"
+  },
+  {
+    "customer_id": "DED-CUST-0004",
+    "display_name": "Yara V.",
+    "preferred_language": "en",
+    "city": "Al Khobar"
+  },
+  {
+    "customer_id": "DED-CUST-0005",
+    "display_name": "بدور ج.",
+    "preferred_language": "ar",
+    "city": "Al Madinah"
+  },
+  {
+    "customer_id": "DED-CUST-0006",
+    "display_name": "Ilyan K.",
+    "preferred_language": "en",
+    "city": "Riyadh"
+  },
+  {
+    "customer_id": "DED-CUST-0007",
+    "display_name": "أنس س.",
+    "preferred_language": "ar",
+    "city": "Taif"
+  },
+  {
+    "customer_id": "DED-CUST-0008",
+    "display_name": "Nuri C.",
+    "preferred_language": "en",
+    "city": "Dhahran"
+  },
+  {
+    "customer_id": "DED-CUST-0009",
+    "display_name": "أريج د.",
+    "preferred_language": "ar",
+    "city": "Hail"
+  },
+  {
+    "customer_id": "DED-CUST-0010",
+    "display_name": "Silas R.",
+    "preferred_language": "en",
+    "city": "Yanbu"
+  },
+  {
+    "customer_id": "DED-CUST-0011",
+    "display_name": "يزن ع.",
+    "preferred_language": "ar",
+    "city": "Jeddah"
+  },
+  {
+    "customer_id": "DED-CUST-0012",
+    "display_name": "Reyna L.",
+    "preferred_language": "en",
+    "city": "Dammam"
+  },
+  {
+    "customer_id": "DED-CUST-0013",
+    "display_name": "سمر و.",
+    "preferred_language": "ar",
+    "city": "Al Hofuf"
+  },
+  {
+    "customer_id": "DED-CUST-0014",
+    "display_name": "Nasir E.",
+    "preferred_language": "en",
+    "city": "Al Madinah"
+  },
+  {
+    "customer_id": "DED-CUST-0015",
+    "display_name": "هتان ك.",
+    "preferred_language": "ar",
+    "city": "Al Khobar"
+  },
+  {
+    "customer_id": "DED-CUST-0016",
+    "display_name": "Mara D.",
+    "preferred_language": "en",
+    "city": "Jubail"
+  }
+]

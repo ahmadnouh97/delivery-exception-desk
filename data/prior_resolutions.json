@@ -1,0 +1,72 @@
+[
+  {
+    "case_id": "DED-1009",
+    "order_id": "DED-ORD-1009",
+    "resolution": "refund",
+    "status": "completed",
+    "same_issue": true
+  },
+  {
+    "case_id": "DED-1015",
+    "order_id": "DED-ORD-1015",
+    "resolution": "replacement",
+    "status": "completed",
+    "same_issue": true
+  },
+  {
+    "case_id": "DED-1029",
+    "order_id": "DED-ORD-1029",
+    "resolution": "refund",
+    "status": "completed",
+    "same_issue": true
+  },
+  {
+    "case_id": "DED-1035",
+    "order_id": "DED-ORD-1035",
+    "resolution": "replacement",
+    "status": "completed",
+    "same_issue": true
+  },
+  {
+    "case_id": "DED-2009",
+    "order_id": "DED-ORD-2009",
+    "resolution": "refund",
+    "status": "completed",
+    "same_issue": true
+  },
+  {
+    "case_id": "DED-2012",
+    "order_id": "DED-ORD-2012",
+    "resolution": "replacement",
+    "status": "completed",
+    "same_issue": true
+  },
+  {
+    "case_id": "DED-2013",
+    "order_id": "DED-ORD-2013",
+    "resolution": "refund",
+    "status": "pending",
+    "same_issue": true
+  },
+  {
+    "case_id": "DED-2016",
+    "order_id": "DED-ORD-2016",
+    "resolution": "replacement",
+    "status": "completed",
+    "same_issue": false
+  },
+  {
+    "case_id": "DED-2019",
+    "order_id": "DED-ORD-2019",
+    "resolution": "replacement",
+    "status": "pending",
+    "same_issue": true
+  },
+  {
+    "case_id": "DED-2022",
+    "order_id": "DED-ORD-2022",
+    "resolution": "refund",
+    "status": "completed",
+    "same_issue": false
+  }
+]

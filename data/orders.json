@@ -1,0 +1,194 @@
+[
+  {
+    "order_id": "DED-ORD-2001",
+    "customer_id": "DED-CUST-0001",
+    "item": "Wheeled laundry basket",
+    "total_sar": 137.5,
+    "replacement_in_stock": true,
+    "replacement_address_status": "confirmed"
+  },
+  {
+    "order_id": "DED-ORD-2002",
+    "customer_id": "DED-CUST-0002",
+    "item": "Nesting stainless-steel bowls",
+    "total_sar": 169,
+    "replacement_in_stock": true,
+    "replacement_address_status": "confirmed"
+  },
+  {
+    "order_id": "DED-ORD-2003",
+    "customer_id": "DED-CUST-0003",
+    "item": "Arched wall mirror",
+    "total_sar": 490,
+    "replacement_in_stock": true,
+    "replacement_address_status": "confirmed"
+  },
+  {
+    "order_id": "DED-ORD-2004",
+    "customer_id": "DED-CUST-0004",
+    "item": "Adjustable speaker stand",
+    "total_sar": 238,
+    "replacement_in_stock": true,
+    "replacement_address_status": "needs_confirmation"
+  },
+  {
+    "order_id": "DED-ORD-2005",
+    "customer_id": "DED-CUST-0005",
+    "item": "Measuring spoon set",
+    "total_sar": 55,
+    "replacement_in_stock": true,
+    "replacement_address_status": "confirmed"
+  },
+  {
+    "order_id": "DED-ORD-2006",
+    "customer_id": "DED-CUST-0006",
+    "item": "Portable reading magnifier",
+    "total_sar": 130,
+    "replacement_in_stock": true,
+    "replacement_address_status": "confirmed"
+  },
+  {
+    "order_id": "DED-ORD-2007",
+    "customer_id": "DED-CUST-0007",
+    "item": "Folding balcony chair",
+    "total_sar": 227,
+    "replacement_in_stock": true,
+    "replacement_address_status": "confirmed"
+  },
+  {
+    "order_id": "DED-ORD-2008",
+    "customer_id": "DED-CUST-0008",
+    "item": "Induction saucepan set",
+    "total_sar": 742,
+    "replacement_in_stock": true,
+    "replacement_address_status": "confirmed"
+  },
+  {
+    "order_id": "DED-ORD-2009",
+    "customer_id": "DED-CUST-0009",
+    "item": "Locking tool box",
+    "total_sar": 188,
+    "replacement_in_stock": true,
+    "replacement_address_status": "confirmed"
+  },
+  {
+    "order_id": "DED-ORD-2010",
+    "customer_id": "DED-CUST-0010",
+    "item": "Quick-release workbench clamp",
+    "total_sar": 61.25,
+    "replacement_in_stock": true,
+    "replacement_address_status": "confirmed"
+  },
+  {
+    "order_id": "DED-ORD-2011",
+    "customer_id": "DED-CUST-0011",
+    "item": "Heated seat cushion",
+    "total_sar": 536,
+    "replacement_in_stock": true,
+    "replacement_address_status": "needs_confirmation"
+  },
+  {
+    "order_id": "DED-ORD-2012",
+    "customer_id": "DED-CUST-0012",
+    "item": "Waterproof picnic blanket",
+    "total_sar": 195,
+    "replacement_in_stock": true,
+    "replacement_address_status": "confirmed"
+  },
+  {
+    "order_id": "DED-ORD-2013",
+    "customer_id": "DED-CUST-0013",
+    "item": "Stackable spice canisters",
+    "total_sar": 148.9,
+    "replacement_in_stock": true,
+    "replacement_address_status": "confirmed"
+  },
+  {
+    "order_id": "DED-ORD-2014",
+    "customer_id": "DED-CUST-0014",
+    "item": "Adjustable drawer dividers",
+    "total_sar": 103,
+    "replacement_in_stock": true,
+    "replacement_address_status": "confirmed"
+  },
+  {
+    "order_id": "DED-ORD-2015",
+    "customer_id": "DED-CUST-0015",
+    "item": "Slim shoe cabinet",
+    "total_sar": 510,
+    "replacement_in_stock": false,
+    "replacement_address_status": "needs_confirmation"
+  },
+  {
+    "order_id": "DED-ORD-2016",
+    "customer_id": "DED-CUST-0016",
+    "item": "Window extractor fan",
+    "total_sar": 377,
+    "replacement_in_stock": true,
+    "replacement_address_status": "confirmed"
+  },
+  {
+    "order_id": "DED-ORD-2017",
+    "customer_id": "DED-CUST-0001",
+    "item": "Wall-mounted plate rack",
+    "total_sar": 109,
+    "replacement_in_stock": true,
+    "replacement_address_status": "confirmed"
+  },
+  {
+    "order_id": "DED-ORD-2018",
+    "customer_id": "DED-CUST-0002",
+    "item": "Rain cover for a backpack",
+    "total_sar": 49.5,
+    "replacement_in_stock": true,
+    "replacement_address_status": "confirmed"
+  },
+  {
+    "order_id": "DED-ORD-2019",
+    "customer_id": "DED-CUST-0003",
+    "item": "Low folding serving table",
+    "total_sar": 275,
+    "replacement_in_stock": true,
+    "replacement_address_status": "confirmed"
+  },
+  {
+    "order_id": "DED-ORD-2020",
+    "customer_id": "DED-CUST-0004",
+    "item": "Roll-up dish drying mat",
+    "total_sar": 73,
+    "replacement_in_stock": true,
+    "replacement_address_status": "needs_confirmation"
+  },
+  {
+    "order_id": "DED-ORD-2021",
+    "customer_id": "DED-CUST-0005",
+    "item": "Rechargeable inspection light",
+    "total_sar": 207,
+    "replacement_in_stock": true,
+    "replacement_address_status": "confirmed"
+  },
+  {
+    "order_id": "DED-ORD-2022",
+    "customer_id": "DED-CUST-0006",
+    "item": "Expandable file box",
+    "total_sar": 68,
+    "replacement_in_stock": false,
+    "replacement_address_status": "confirmed"
+  },
+  {
+    "order_id": "DED-ORD-2023",
+    "customer_id": "DED-CUST-0007",
+    "item": "Tea serving set",
+    "total_sar": 185,
+    "replacement_in_stock": true,
+    "replacement_address_status": "confirmed"
+  },
+  {
+    "order_id": "DED-ORD-2024",
+    "customer_id": "DED-CUST-0008",
+    "item": "Retractable hose reel",
+    "total_sar": 265,
+    "replacement_in_stock": true,
+    "replacement_address_status": "confirmed"
+  }
+]

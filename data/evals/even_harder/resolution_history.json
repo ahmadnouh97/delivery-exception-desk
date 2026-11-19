@@ -1,0 +1,30 @@
+[
+  {
+    "case_id": "DED-4001",
+    "order_id": "DED-ORD-4001",
+    "resolution": "refund",
+    "status": "completed",
+    "same_issue": true
+  },
+  {
+    "case_id": "DED-4002",
+    "order_id": "DED-ORD-4002",
+    "resolution": "replacement",
+    "status": "completed",
+    "same_issue": true
+  },
+  {
+    "case_id": "DED-4003",
+    "order_id": "DED-ORD-4003",
+    "resolution": "refund",
+    "status": "pending",
+    "same_issue": true
+  },
+  {
+    "case_id": "DED-4004",
+    "order_id": "DED-ORD-4004",
+    "resolution": "refund",
+    "status": "completed",
+    "same_issue": false
+  }
+]

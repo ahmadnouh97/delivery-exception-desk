@@ -1,0 +1,26 @@
+[
+  {
+    "topic": "Carrier depot",
+    "fact": "A depot is a Sahmline Parcel facility. A parcel scanned there is still in the carrier network."
+  },
+  {
+    "topic": "Retailer returns warehouse",
+    "fact": "Mizn & Dune matches the parcel to an order when its warehouse checks it in. The warehouse receipt appears as return_received."
+  },
+  {
+    "topic": "Tracking notifications",
+    "fact": "Customers may see an app notification later than the carrier event that triggered it. The event timestamp belongs to the scan."
+  },
+  {
+    "topic": "Proof of delivery",
+    "fact": "Sahmline Parcel may capture a photo, signature, or recipient code. Each evidence type identifies different parts of the handoff."
+  },
+  {
+    "topic": "Resolution history",
+    "fact": "The support ledger stores the order, earlier action, completion status, and whether the action concerns the issue being reviewed."
+  },
+  {
+    "topic": "Replacement inventory",
+    "fact": "The order lookup gives the current replacement stock for the same item. It does not represent the stock for similar products."
+  }
+]

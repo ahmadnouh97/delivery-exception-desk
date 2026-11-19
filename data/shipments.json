@@ -1,0 +1,526 @@
+[
+  {
+    "tracking_id": "DED-TRK-2001",
+    "order_id": "DED-ORD-2001",
+    "events": [
+      {
+        "at": "2026-10-07T08:18:00+03:00",
+        "status": "out_for_delivery",
+        "detail": "Parcel was assigned to a van route because of its size."
+      },
+      {
+        "at": "2026-10-07T11:40:00+03:00",
+        "status": "delivered",
+        "detail": "Driver closed the stop as a drop-off at the dwelling entrance."
+      }
+    ],
+    "proof_of_delivery": null
+  },
+  {
+    "tracking_id": "DED-TRK-2002",
+    "order_id": "DED-ORD-2002",
+    "events": [
+      {
+        "at": "2026-10-07T10:16:00+03:00",
+        "status": "out_for_delivery",
+        "detail": "The driver loaded multiple shipments for nearby stops."
+      },
+      {
+        "at": "2026-10-07T16:57:00+03:00",
+        "status": "delivered",
+        "detail": "Driver attached a safe-place photo to the delivery scan."
+      }
+    ],
+    "proof_of_delivery": {
+      "kind": "photo",
+      "assessment": "mismatch",
+      "detail": "The pictured shed matches the location note, but the visible label is linked to a different shipment."
+    }
+  },
+  {
+    "tracking_id": "DED-TRK-2003",
+    "order_id": "DED-ORD-2003",
+    "events": [
+      {
+        "at": "2026-10-02T17:44:00+03:00",
+        "status": "delivery_attempted",
+        "detail": "Recipient could not accept the tall carton near the loading entrance."
+      },
+      {
+        "at": "2026-10-04T18:09:00+03:00",
+        "status": "return_in_transit",
+        "detail": "Counter hold ended and the branch loaded the carton for its return run."
+      },
+      {
+        "at": "2026-10-07T14:36:00+03:00",
+        "status": "return_received",
+        "detail": "Retailer warehouse scanned the returned mirror and matched the sales label."
+      }
+    ],
+    "proof_of_delivery": null
+  },
+  {
+    "tracking_id": "DED-TRK-2004",
+    "order_id": "DED-ORD-2004",
+    "events": [
+      {
+        "at": "2026-10-02T11:36:00+03:00",
+        "status": "delivery_attempted",
+        "detail": "The residence's receiving desk reported the named occupant had moved out."
+      },
+      {
+        "at": "2026-10-04T07:27:00+03:00",
+        "status": "return_in_transit",
+        "detail": "Carrier redirected the parcel to merchant returns."
+      },
+      {
+        "at": "2026-10-08T08:51:00+03:00",
+        "status": "return_received",
+        "detail": "Retailer intake recorded the boxed stand and matched it by order label."
+      }
+    ],
+    "proof_of_delivery": null
+  },
+  {
+    "tracking_id": "DED-TRK-2005",
+    "order_id": "DED-ORD-2005",
+    "events": [
+      {
+        "at": "2026-10-08T07:31:00+03:00",
+        "status": "out_for_delivery",
+        "detail": "Parcel loaded for the first neighborhood route of the day."
+      },
+      {
+        "at": "2026-10-08T08:18:00+03:00",
+        "status": "delivered",
+        "detail": "Driver recorded a handoff to the duty guard."
+      }
+    ],
+    "proof_of_delivery": {
+      "kind": "signature",
+      "assessment": "inconclusive",
+      "detail": "The signature line contains a single mark with no identifying characters or intake entry."
+    }
+  },
+  {
+    "tracking_id": "DED-TRK-2006",
+    "order_id": "DED-ORD-2006",
+    "events": [
+      {
+        "at": "2026-10-08T11:05:00+03:00",
+        "status": "out_for_delivery",
+        "detail": "Carrier loaded the shipment for deposit at an automated cabinet."
+      },
+      {
+        "at": "2026-10-08T14:46:00+03:00",
+        "status": "delivered",
+        "detail": "Correct cabinet recorded a drop-off linked to this tracking ID."
+      }
+    ],
+    "proof_of_delivery": {
+      "kind": "photo",
+      "assessment": "matches",
+      "detail": "The proof photo shows the expected cabinet and the matching parcel label."
+    }
+  },
+  {
+    "tracking_id": "DED-TRK-2007",
+    "order_id": "DED-ORD-2007",
+    "events": [
+      {
+        "at": "2026-10-07T17:25:00+03:00",
+        "status": "delivery_attempted",
+        "detail": "The recipient asked for handoff at a neighboring shop. Staff at that shop declined the bulky parcel."
+      },
+      {
+        "at": "2026-10-08T09:49:00+03:00",
+        "status": "return_in_transit",
+        "detail": "Branch redirected the carton to the retailer after the recipient declined another delivery attempt."
+      },
+      {
+        "at": "2026-10-09T17:39:00+03:00",
+        "status": "return_at_carrier_depot",
+        "detail": "Regional carrier depot staged the return for the next truck."
+      }
+    ],
+    "proof_of_delivery": null
+  },
+  {
+    "tracking_id": "DED-TRK-2008",
+    "order_id": "DED-ORD-2008",
+    "events": [
+      {
+        "at": "2026-10-04T13:21:00+03:00",
+        "status": "delivery_attempted",
+        "detail": "A plant room closure blocked access to the receiving station."
+      },
+      {
+        "at": "2026-10-06T11:44:00+03:00",
+        "status": "return_in_transit",
+        "detail": "Parcel sent back after the requested later delivery window could not be arranged."
+      },
+      {
+        "at": "2026-10-10T08:59:00+03:00",
+        "status": "return_received",
+        "detail": "Warehouse intake scanned the unopened cookware carton."
+      }
+    ],
+    "proof_of_delivery": null
+  },
+  {
+    "tracking_id": "DED-TRK-2009",
+    "order_id": "DED-ORD-2009",
+    "events": [
+      {
+        "at": "2026-10-07T09:30:00+03:00",
+        "status": "out_for_delivery",
+        "detail": "The driver loaded the parcel with a consolidated neighborhood route."
+      },
+      {
+        "at": "2026-10-07T17:13:00+03:00",
+        "status": "delivered",
+        "detail": "Carrier saved a parcel label photo as proof of delivery."
+      }
+    ],
+    "proof_of_delivery": {
+      "kind": "photo",
+      "assessment": "mismatch",
+      "detail": "Carrier manifest links the photographed label to a separate order."
+    }
+  },
+  {
+    "tracking_id": "DED-TRK-2010",
+    "order_id": "DED-ORD-2010",
+    "events": [
+      {
+        "at": "2026-10-09T10:27:00+03:00",
+        "status": "out_for_delivery",
+        "detail": "Parcel loaded for residential and workshop deliveries."
+      },
+      {
+        "at": "2026-10-09T19:12:00+03:00",
+        "status": "delivered",
+        "detail": "The delivery scan lists a shared package rack and has no attachment."
+      }
+    ],
+    "proof_of_delivery": null
+  },
+  {
+    "tracking_id": "DED-TRK-2011",
+    "order_id": "DED-ORD-2011",
+    "events": [
+      {
+        "at": "2026-10-05T12:48:00+03:00",
+        "status": "delivery_attempted",
+        "detail": "Carrier address validation flagged a missing building entrance designation."
+      },
+      {
+        "at": "2026-10-07T16:26:00+03:00",
+        "status": "return_in_transit",
+        "detail": "Parcel sent back at the end of the address-correction window."
+      },
+      {
+        "at": "2026-10-10T07:40:00+03:00",
+        "status": "return_at_carrier_depot",
+        "detail": "Carrier regional return scan confirmed arrival at its transfer hub."
+      },
+      {
+        "at": "2026-10-11T09:15:00+03:00",
+        "status": "return_received",
+        "detail": "Warehouse intake scanned the original label at the bulky returns dock."
+      }
+    ],
+    "proof_of_delivery": null
+  },
+  {
+    "tracking_id": "DED-TRK-2012",
+    "order_id": "DED-ORD-2012",
+    "events": [
+      {
+        "at": "2026-10-01T10:43:00+03:00",
+        "status": "delivery_attempted",
+        "detail": "The driver could not reach the customer at the booked stop."
+      },
+      {
+        "at": "2026-10-03T16:59:00+03:00",
+        "status": "return_in_transit",
+        "detail": "Carrier closed its ticket and routed the unused parcel back to the retailer."
+      },
+      {
+        "at": "2026-10-08T12:52:00+03:00",
+        "status": "return_received",
+        "detail": "Retailer warehouse accepted the original blanket and scanned the label."
+      }
+    ],
+    "proof_of_delivery": null
+  },
+  {
+    "tracking_id": "DED-TRK-2013",
+    "order_id": "DED-ORD-2013",
+    "events": [
+      {
+        "at": "2026-10-10T10:53:00+03:00",
+        "status": "out_for_delivery",
+        "detail": "Parcel left the branch with the midday residential route."
+      },
+      {
+        "at": "2026-10-10T15:42:00+03:00",
+        "status": "delivered",
+        "detail": "Driver closed the stop without attaching proof."
+      }
+    ],
+    "proof_of_delivery": null
+  },
+  {
+    "tracking_id": "DED-TRK-2014",
+    "order_id": "DED-ORD-2014",
+    "events": [
+      {
+        "at": "2026-10-12T08:33:00+03:00",
+        "status": "out_for_delivery",
+        "detail": "Destination branch assigned the parcel to its residential belt."
+      },
+      {
+        "at": "2026-10-12T12:08:00+03:00",
+        "status": "delivered",
+        "detail": "Driver saved a delivery photo on the agreed utility shelf."
+      }
+    ],
+    "proof_of_delivery": {
+      "kind": "photo",
+      "assessment": "matches",
+      "detail": "The photo shows the shelf agreed with the customer and the shipment label."
+    }
+  },
+  {
+    "tracking_id": "DED-TRK-2015",
+    "order_id": "DED-ORD-2015",
+    "events": [
+      {
+        "at": "2026-10-05T13:26:00+03:00",
+        "status": "delivery_attempted",
+        "detail": "Customer asked the driver to route the undelivered carton to a collection counter."
+      },
+      {
+        "at": "2026-10-06T09:11:00+03:00",
+        "status": "awaiting_pickup",
+        "detail": "Carrier checked the parcel in for collection."
+      },
+      {
+        "at": "2026-10-10T17:16:00+03:00",
+        "status": "return_in_transit",
+        "detail": "Collection window expired, and the carrier transferred the carton for return."
+      },
+      {
+        "at": "2026-10-13T08:52:00+03:00",
+        "status": "return_received",
+        "detail": "Warehouse scanned the return and reported the original carton damaged."
+      }
+    ],
+    "proof_of_delivery": null
+  },
+  {
+    "tracking_id": "DED-TRK-2016",
+    "order_id": "DED-ORD-2016",
+    "events": [
+      {
+        "at": "2026-10-07T15:04:00+03:00",
+        "status": "delivery_attempted",
+        "detail": "A site manager refused access to the installation unit."
+      },
+      {
+        "at": "2026-10-09T06:51:00+03:00",
+        "status": "return_in_transit",
+        "detail": "Carrier sealed the main-unit carton for the merchant return truck."
+      },
+      {
+        "at": "2026-10-13T09:27:00+03:00",
+        "status": "return_received",
+        "detail": "Intake identified and scanned the returned main unit."
+      }
+    ],
+    "proof_of_delivery": null
+  },
+  {
+    "tracking_id": "DED-TRK-2017",
+    "order_id": "DED-ORD-2017",
+    "events": [
+      {
+        "at": "2026-10-13T08:45:00+03:00",
+        "status": "out_for_delivery",
+        "detail": "The driver carried parcels for two adjacent buildings with managed reception."
+      },
+      {
+        "at": "2026-10-13T17:50:00+03:00",
+        "status": "delivered",
+        "detail": "Carrier attached the service desk's signed receipt."
+      }
+    ],
+    "proof_of_delivery": {
+      "kind": "signature",
+      "assessment": "mismatch",
+      "detail": "The reception stamp on the signed receipt identifies the adjacent building, which differs from the shipment destination."
+    }
+  },
+  {
+    "tracking_id": "DED-TRK-2018",
+    "order_id": "DED-ORD-2018",
+    "events": [
+      {
+        "at": "2026-10-13T08:44:00+03:00",
+        "status": "out_for_delivery",
+        "detail": "Parcel loaded for an extended route."
+      },
+      {
+        "at": "2026-10-13T12:33:00+03:00",
+        "status": "delivered",
+        "detail": "Driver recorded a shared parcel table drop-off on the handheld."
+      },
+      {
+        "at": "2026-10-13T20:54:00+03:00",
+        "status": "delivered",
+        "detail": "The destination branch sent a second delivery scan after reconciling its manifest."
+      }
+    ],
+    "proof_of_delivery": {
+      "kind": "signature",
+      "assessment": "inconclusive",
+      "detail": "The second scan has no named recipient. A cropped mark is attached without readable details."
+    }
+  },
+  {
+    "tracking_id": "DED-TRK-2019",
+    "order_id": "DED-ORD-2019",
+    "events": [
+      {
+        "at": "2026-10-09T16:32:00+03:00",
+        "status": "delivery_attempted",
+        "detail": "Driver found the community room closed and could not hand over the parcel."
+      },
+      {
+        "at": "2026-10-11T11:14:00+03:00",
+        "status": "return_in_transit",
+        "detail": "Carrier sorted the parcel onto a warehouse-bound route."
+      },
+      {
+        "at": "2026-10-14T09:12:00+03:00",
+        "status": "return_at_carrier_depot",
+        "detail": "The destination depot recorded return staging after a truck delay."
+      }
+    ],
+    "proof_of_delivery": null
+  },
+  {
+    "tracking_id": "DED-TRK-2020",
+    "order_id": "DED-ORD-2020",
+    "events": [
+      {
+        "at": "2026-10-08T15:38:00+03:00",
+        "status": "delivery_attempted",
+        "detail": "Driver could not complete delivery using the existing flat access instructions."
+      },
+      {
+        "at": "2026-10-10T06:22:00+03:00",
+        "status": "return_in_transit",
+        "detail": "Parcel was loaded onto the merchant return vehicle."
+      },
+      {
+        "at": "2026-10-14T14:40:00+03:00",
+        "status": "return_received",
+        "detail": "Returns staff registered the order's intact parcel upon arrival."
+      }
+    ],
+    "proof_of_delivery": null
+  },
+  {
+    "tracking_id": "DED-TRK-2021",
+    "order_id": "DED-ORD-2021",
+    "events": [
+      {
+        "at": "2026-10-13T08:34:00+03:00",
+        "status": "out_for_delivery",
+        "detail": "Parcel assigned to a mixed workshop delivery run."
+      },
+      {
+        "at": "2026-10-13T17:05:00+03:00",
+        "status": "delivered",
+        "detail": "Carrier recorded a successful one-time code check before closing the stop."
+      }
+    ],
+    "proof_of_delivery": {
+      "kind": "recipient_code",
+      "assessment": "matches",
+      "detail": "The code matches this shipment and the customer confirms providing it."
+    }
+  },
+  {
+    "tracking_id": "DED-TRK-2022",
+    "order_id": "DED-ORD-2022",
+    "events": [
+      {
+        "at": "2026-10-15T09:58:00+03:00",
+        "status": "out_for_delivery",
+        "detail": "The route manifest lists the current parcel cabinet for this order."
+      },
+      {
+        "at": "2026-10-15T14:30:00+03:00",
+        "status": "delivered",
+        "detail": "The driver took a photo of the parcel bay at drop-off."
+      }
+    ],
+    "proof_of_delivery": {
+      "kind": "photo",
+      "assessment": "mismatch",
+      "detail": "The carrier reviewed the image and confirmed the pictured bay is in an adjacent building."
+    }
+  },
+  {
+    "tracking_id": "DED-TRK-2023",
+    "order_id": "DED-ORD-2023",
+    "events": [
+      {
+        "at": "2026-10-11T13:12:00+03:00",
+        "status": "delivery_attempted",
+        "detail": "No one was present for the prepaid handoff."
+      },
+      {
+        "at": "2026-10-12T08:27:00+03:00",
+        "status": "awaiting_pickup",
+        "detail": "Local branch moved the parcel to a short collection hold."
+      },
+      {
+        "at": "2026-10-14T18:21:00+03:00",
+        "status": "return_in_transit",
+        "detail": "End-of-hold scan routed the parcel back."
+      },
+      {
+        "at": "2026-10-16T09:08:00+03:00",
+        "status": "return_received",
+        "detail": "Warehouse checked the serving set into returns."
+      }
+    ],
+    "proof_of_delivery": null
+  },
+  {
+    "tracking_id": "DED-TRK-2024",
+    "order_id": "DED-ORD-2024",
+    "events": [
+      {
+        "at": "2026-10-12T12:02:00+03:00",
+        "status": "delivery_attempted",
+        "detail": "No recipient was available for the requested signed handoff."
+      },
+      {
+        "at": "2026-10-14T15:45:00+03:00",
+        "status": "delivery_attempted",
+        "detail": "Second attempt ended without a signature."
+      },
+      {
+        "at": "2026-10-16T09:53:00+03:00",
+        "status": "return_in_transit",
+        "detail": "Carrier processed the parcel into the reverse lane after both attempts."
+      }
+    ],
+    "proof_of_delivery": null
+  }
+]

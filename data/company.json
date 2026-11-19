@@ -1,0 +1,8 @@
+{
+  "retailer_name": "Mizn & Dune",
+  "carrier_name": "Sahmline Parcel",
+  "currency": "SAR",
+  "timezone": "Asia/Riyadh",
+  "missing_delivery_wait_hours": 24,
+  "supervisor_review_threshold_sar": 500
+}

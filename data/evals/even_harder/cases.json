@@ -1,0 +1,287 @@
+[
+  {
+    "case_id": "DED-4001",
+    "language": "ar",
+    "exception_type": "delivered_not_received",
+    "reported_at": "2026-11-10T19:46:00+03:00",
+    "customer_message": "الصورة عند مدخل العمارة اللي جنبنا، والطلب ما وصلني. شفت إشعار بالمبلغ بس مدري نزل فعلاً أو بس تحت الإجراء. إذا ما نزل رجعوا لي المبلغ.",
+    "requested_refund_sar": null,
+    "order": {
+      "order_id": "DED-ORD-4001",
+      "item": "Rechargeable stick vacuum",
+      "total_sar": 649,
+      "replacement_in_stock": true,
+      "replacement_address_status": "confirmed"
+    },
+    "shipment": {
+      "tracking_id": "DED-TRK-4001",
+      "events": [
+        {
+          "at": "2026-11-08T14:15:00+03:00",
+          "status": "out_for_delivery",
+          "detail": "Driver took the vacuum out on the residential route."
+        },
+        {
+          "at": "2026-11-08T17:15:00+03:00",
+          "status": "delivered",
+          "detail": "Driver uploaded a photo of the exterior entrance."
+        }
+      ],
+      "proof_of_delivery": {
+        "kind": "photo",
+        "assessment": "mismatch",
+        "detail": "Carrier review identifies the photographed entrance as a neighboring building."
+      }
+    }
+  },
+  {
+    "case_id": "DED-4002",
+    "language": "en",
+    "exception_type": "return_to_sender",
+    "reported_at": "2026-11-11T15:38:00+03:00",
+    "customer_message": "The original box just showed up as back at your warehouse. I got a dispatch email last week but couldn't tell if it was for this return. If you haven't sent another one, please resend it to the same address.",
+    "requested_refund_sar": null,
+    "order": {
+      "order_id": "DED-ORD-4002",
+      "item": "Portable induction cooktop",
+      "total_sar": 535,
+      "replacement_in_stock": true,
+      "replacement_address_status": "confirmed"
+    },
+    "shipment": {
+      "tracking_id": "DED-TRK-4002",
+      "events": [
+        {
+          "at": "2026-11-03T11:43:00+03:00",
+          "status": "delivery_attempted",
+          "detail": "The parcel was directed to an unstaffed receiving bay and handoff failed."
+        },
+        {
+          "at": "2026-11-05T08:45:00+03:00",
+          "status": "return_in_transit",
+          "detail": "Carrier collected the original unit for return."
+        },
+        {
+          "at": "2026-11-11T12:38:00+03:00",
+          "status": "return_received",
+          "detail": "Retailer matched the returned original to the order."
+        }
+      ],
+      "proof_of_delivery": null
+    }
+  },
+  {
+    "case_id": "DED-4003",
+    "language": "ar",
+    "exception_type": "delivered_not_received",
+    "reported_at": "2026-11-13T19:28:00+03:00",
+    "customer_message": "أمس العصر مكتوب إن المندوب سلّم الخلاط، بس محد عندنا استلمه. جاني تنبيه إن الاسترجاع بدأ، ولا شفت المبلغ. إذا ما اكتمل أبي فلوسي ترجع.",
+    "requested_refund_sar": null,
+    "order": {
+      "order_id": "DED-ORD-4003",
+      "item": "Hand blender set",
+      "total_sar": 229,
+      "replacement_in_stock": true,
+      "replacement_address_status": "confirmed"
+    },
+    "shipment": {
+      "tracking_id": "DED-TRK-4003",
+      "events": [
+        {
+          "at": "2026-11-12T08:05:00+03:00",
+          "status": "out_for_delivery",
+          "detail": "The parcel went out on the neighborhood route."
+        },
+        {
+          "at": "2026-11-12T15:05:00+03:00",
+          "status": "delivered",
+          "detail": "The driver recorded a handoff at the lobby desk."
+        }
+      ],
+      "proof_of_delivery": {
+        "kind": "signature",
+        "assessment": "inconclusive",
+        "detail": "The signature mark cannot establish who took the blender."
+      }
+    }
+  },
+  {
+    "case_id": "DED-4004",
+    "language": "en",
+    "exception_type": "return_to_sender",
+    "reported_at": "2026-11-14T15:05:00+03:00",
+    "customer_message": "There's an old refund entry on this order and I'm not sure what it was for. The bin has gone back and I'd still like one. I've moved since I ordered, so don't use the address on file.",
+    "requested_refund_sar": null,
+    "order": {
+      "order_id": "DED-ORD-4004",
+      "item": "Pull-out recycling bin",
+      "total_sar": 524,
+      "replacement_in_stock": true,
+      "replacement_address_status": "needs_confirmation"
+    },
+    "shipment": {
+      "tracking_id": "DED-TRK-4004",
+      "events": [
+        {
+          "at": "2026-11-10T18:10:00+03:00",
+          "status": "delivery_attempted",
+          "detail": "The building desk advised that the recipient had moved."
+        },
+        {
+          "at": "2026-11-11T07:02:00+03:00",
+          "status": "return_in_transit",
+          "detail": "Carrier collected the parcel for return transport."
+        },
+        {
+          "at": "2026-11-14T10:44:00+03:00",
+          "status": "return_received",
+          "detail": "Retail warehouse intake matched the parcel to the order."
+        }
+      ],
+      "proof_of_delivery": null
+    }
+  },
+  {
+    "case_id": "DED-4005",
+    "language": "ar",
+    "exception_type": "return_to_sender",
+    "reported_at": "2026-11-15T10:20:00+03:00",
+    "customer_message": "آخر شي عندي إنها بمستودع شركة الشحن. ما عاد أبي الجهاز، رجعوا لي المبلغ على نفس البطاقة. إذا العنوان القديم للحين مسجل لا ترسلون عليه شي.",
+    "requested_refund_sar": 500.01,
+    "order": {
+      "order_id": "DED-ORD-4005",
+      "item": "Compact garment steamer",
+      "total_sar": 500.01,
+      "replacement_in_stock": true,
+      "replacement_address_status": "needs_confirmation"
+    },
+    "shipment": {
+      "tracking_id": "DED-TRK-4005",
+      "events": [
+        {
+          "at": "2026-11-11T12:53:00+03:00",
+          "status": "delivery_attempted",
+          "detail": "The intended receiving desk was closed."
+        },
+        {
+          "at": "2026-11-13T07:16:00+03:00",
+          "status": "return_at_carrier_depot",
+          "detail": "The carrier scanned the parcel into its returns staging area."
+        },
+        {
+          "at": "2026-11-15T10:04:00+03:00",
+          "status": "return_received",
+          "detail": "The retailer's receiving team scanned and accepted the parcel at its warehouse."
+        }
+      ],
+      "proof_of_delivery": null
+    }
+  },
+  {
+    "case_id": "DED-4006",
+    "language": "en",
+    "exception_type": "delivered_not_received",
+    "reported_at": "2026-11-16T18:30:00+03:00",
+    "customer_message": "The driver called this afternoon to say they'd checked the delivery photo again. That's my porch, but I still don't have the box. It first showed delivered yesterday morning.",
+    "requested_refund_sar": null,
+    "order": {
+      "order_id": "DED-ORD-4006",
+      "item": "Digital luggage scale",
+      "total_sar": 72,
+      "replacement_in_stock": true,
+      "replacement_address_status": "confirmed"
+    },
+    "shipment": {
+      "tracking_id": "DED-TRK-4006",
+      "events": [
+        {
+          "at": "2026-11-15T07:49:00+03:00",
+          "status": "out_for_delivery",
+          "detail": "Driver left the local depot with the scale."
+        },
+        {
+          "at": "2026-11-15T10:15:00+03:00",
+          "status": "delivered",
+          "detail": "The driver recorded the porch drop-off and uploaded a photo."
+        }
+      ],
+      "proof_of_delivery": {
+        "kind": "photo",
+        "assessment": "matches",
+        "detail": "Carrier review matched the shipping label and the porch in the photo to this order."
+      }
+    }
+  },
+  {
+    "case_id": "DED-4007",
+    "language": "ar",
+    "exception_type": "return_to_sender",
+    "reported_at": "2026-11-17T13:40:00+03:00",
+    "customer_message": "حالة الطلب عندي تقول مرتجع والمنتج خلص من الموقع. أبي المبلغ يرجع للبطاقة، ما أقدر أنتظر لين يتوفر مرة ثانية.",
+    "requested_refund_sar": 599,
+    "order": {
+      "order_id": "DED-ORD-4007",
+      "item": "Cordless spot cleaner",
+      "total_sar": 599,
+      "replacement_in_stock": false,
+      "replacement_address_status": "confirmed"
+    },
+    "shipment": {
+      "tracking_id": "DED-TRK-4007",
+      "events": [
+        {
+          "at": "2026-11-12T16:53:00+03:00",
+          "status": "delivery_attempted",
+          "detail": "The pickup desk refused the oversized carton."
+        },
+        {
+          "at": "2026-11-14T04:33:00+03:00",
+          "status": "return_in_transit",
+          "detail": "The carrier sorted the carton onto its return route."
+        },
+        {
+          "at": "2026-11-17T08:04:00+03:00",
+          "status": "return_at_carrier_depot",
+          "detail": "The carrier counted the carton into its returns cage. The retailer has not signed for it."
+        }
+      ],
+      "proof_of_delivery": null
+    }
+  },
+  {
+    "case_id": "DED-4008",
+    "language": "en",
+    "exception_type": "return_to_sender",
+    "reported_at": "2026-11-18T16:20:00+03:00",
+    "customer_message": "The shelves made it back to you. I can confirm a different delivery address if there's another set. If there isn't, please put the money back on my card.",
+    "requested_refund_sar": null,
+    "order": {
+      "order_id": "DED-ORD-4008",
+      "item": "Modular pantry shelf set",
+      "total_sar": 500,
+      "replacement_in_stock": false,
+      "replacement_address_status": "needs_confirmation"
+    },
+    "shipment": {
+      "tracking_id": "DED-TRK-4008",
+      "events": [
+        {
+          "at": "2026-11-14T15:17:00+03:00",
+          "status": "delivery_attempted",
+          "detail": "Access to the listed receiving point was unavailable."
+        },
+        {
+          "at": "2026-11-16T05:22:00+03:00",
+          "status": "return_in_transit",
+          "detail": "The parcel was transferred to the retailer's returns route."
+        },
+        {
+          "at": "2026-11-18T09:32:00+03:00",
+          "status": "return_received",
+          "detail": "Warehouse intake accepted the shelf set and matched it to the prepaid order."
+        }
+      ],
+      "proof_of_delivery": null
+    }
+  }
+]

@@ -1,0 +1,90 @@
+[
+  {
+    "case_id": "DED-3001",
+    "action": "open_carrier_investigation",
+    "refund_sar": 0,
+    "requires_review": false,
+    "policy_ref": "P2",
+    "rationale": "Exactly 24 hours have elapsed since the delivered scan. The time the customer saw the notification and the matching code do not change the requirement to investigate the missing parcel.",
+    "difficulty": "hard",
+    "needs": [],
+    "tiny": true
+  },
+  {
+    "case_id": "DED-3002",
+    "action": "wait_for_update",
+    "refund_sar": 0,
+    "requires_review": false,
+    "policy_ref": "P2",
+    "rationale": "The latest delivered scan is 23 hours 59 minutes old. The photo cannot establish the parcel or the drop-off point, so the waiting window still applies.",
+    "difficulty": "hard",
+    "needs": [],
+    "tiny": true
+  },
+  {
+    "case_id": "DED-3003",
+    "action": "refund",
+    "refund_sar": 500.01,
+    "requires_review": true,
+    "policy_ref": "P5",
+    "rationale": "The customer explicitly requests a refund and the retailer has the parcel. Refund the full SAR 500.01 order total. That total requires supervisor review even though the customer asked for SAR 490.",
+    "difficulty": "hard",
+    "needs": [],
+    "tiny": true
+  },
+  {
+    "case_id": "DED-3004",
+    "action": "refund",
+    "refund_sar": 500,
+    "requires_review": false,
+    "policy_ref": "P4",
+    "rationale": "Warehouse receipt and a clear refund request support a full SAR 500 refund. The extra SAR 20 is outside the order total, and the total is within the no-review limit.",
+    "difficulty": "hard",
+    "needs": [],
+    "tiny": true
+  },
+  {
+    "case_id": "DED-3005",
+    "action": "replace",
+    "refund_sar": 0,
+    "requires_review": false,
+    "policy_ref": "P4",
+    "rationale": "The item has reached the warehouse. Stock and the confirmed address allow the customer's preferred replacement. The refund is conditional on stock running out, and SAR 499.99 is within the no-review limit.",
+    "difficulty": "hard",
+    "needs": [],
+    "tiny": true
+  },
+  {
+    "case_id": "DED-3006",
+    "action": "wait_for_update",
+    "refund_sar": 0,
+    "requires_review": false,
+    "policy_ref": "P3",
+    "rationale": "The carrier depot still holds the parcel. A warehouse receipt is required before acting on the refund request or unavailable stock.",
+    "difficulty": "hard",
+    "needs": [],
+    "tiny": false
+  },
+  {
+    "case_id": "DED-3007",
+    "action": "open_carrier_investigation",
+    "refund_sar": 0,
+    "requires_review": false,
+    "policy_ref": "P2",
+    "rationale": "The delivery code was verified against a different tracking record. This mismatch requires immediate investigation even though the scan is only 14 minutes old.",
+    "difficulty": "hard",
+    "needs": [],
+    "tiny": false
+  },
+  {
+    "case_id": "DED-3008",
+    "action": "refund",
+    "refund_sar": 178,
+    "requires_review": false,
+    "policy_ref": "P4",
+    "rationale": "Warehouse receipt is confirmed and the replacement size is out of stock. The full SAR 178 is refundable, so a new shipping address is unnecessary.",
+    "difficulty": "hard",
+    "needs": [],
+    "tiny": false
+  }
+]
