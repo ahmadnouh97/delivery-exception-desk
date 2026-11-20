@@ -1,0 +1,9 @@
+*.py text eol=lf
+*.pyi text eol=lf
+*.ts text eol=lf
+*.tsx text eol=lf
+*.html text eol=lf
+/eslint.config.js text eol=lf
+/lefthook.yml text eol=lf
+/package.json text eol=lf
+/tsconfig.json text eol=lf

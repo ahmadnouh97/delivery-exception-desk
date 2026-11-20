@@ -1,0 +1,6 @@
+pre-commit:
+  jobs:
+    - name: python
+      run: npm run check:python
+    - name: typescript
+      run: npm run check:ts
