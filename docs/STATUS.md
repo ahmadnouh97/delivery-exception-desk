@@ -1,3 +1,3 @@
 # Status
 
-The API generates and validates Groq recommendations. Verify with uv run -m pytest backend/tests/test_policy.py backend/tests/test_recommendations.py -q.
+The API records handler and supervisor decisions in SQLite. Verify with uv run -m pytest backend/tests/test_reviews.py -q.

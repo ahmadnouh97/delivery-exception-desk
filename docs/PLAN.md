@@ -37,9 +37,9 @@ Add `backend/reviews.py` for state transitions. Expose `POST /api/cases/{case_id
 | `awaiting_supervisor` | A supervisor approves and records the decision, or returns it to `waiting` with a reason. |
 | `decided` | The detail view shows the final human decision and any supervisor outcome. |
 
-- [ ] `uv run -m pytest backend/tests/test_reviews.py -q` verifies a direct decision for `DED-2003` and a held replacement for `DED-2008`. A support agent cannot approve the held case. A supervisor can return it for revision or approve it. The outcome includes the actor and timestamp.
-- [ ] A handler can accept, revise, or record a manual decision when model generation fails. A policy-invalid edit returns `422` with a reason. The recorded submission preserves the original proposal and any earlier supervisor note.
-- [ ] State and history update in one transaction. A duplicate submission or a stale version returns `409` without adding a second decision. Case state and audit records survive restart and reseeding. Tests use a temporary database and stubbed model calls.
+- [x] `uv run -m pytest backend/tests/test_reviews.py -q` verifies a direct decision for `DED-2003` and a held replacement for `DED-2008`. A support agent cannot approve the held case. A supervisor can return it for revision or approve it. The outcome includes the actor and timestamp.
+- [x] A handler can accept, revise, or record a manual decision when model generation fails. A policy-invalid edit returns `422` with a reason. The recorded submission preserves the original proposal and any earlier supervisor note.
+- [x] State and history update in one transaction. A duplicate submission or a stale version returns `409` without adding a second decision. Case state and audit records survive restart and reseeding. Tests use a temporary database and stubbed model calls.
 
 ## Phase 4 — Build the bilingual review workspace
 

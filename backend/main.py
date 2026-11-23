@@ -10,7 +10,7 @@ from backend.database import connect, evidence, seed
 from backend.evidence import Handler, read_records
 from backend.policy import Decision, expected
 from backend.recommendations import Provider, recommend
-from backend.reviews import detail, find_case
+from backend.reviews import Submission, SupervisorReview, detail, find_case, record
 
 
 @asynccontextmanager
@@ -102,3 +102,13 @@ def generate(
                 409, "Case changed while generating the recommendation."
             )
         return Decision.model_validate_json(current["recommendation"])
+
+
+@app.post("/api/cases/{case_id}/decision")
+def submit_decision(case_id: str, request: Submission):
+    return record(case_id, request)
+
+
+@app.post("/api/cases/{case_id}/supervisor-review")
+def supervisor_review(case_id: str, request: SupervisorReview):
+    return record(case_id, request)
