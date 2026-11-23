@@ -46,18 +46,15 @@ Both configurations receive the same report-time evidence and verified history.
 The [original notebook](../labs/01-delivery-exception-baseline.ipynb) omitted
 verified history from its single-call baseline.
 
-| Live development smoke | Arabic | English | Routine | Hard | Manual | Exact |
-| --- | ---: | ---: | ---: | ---: | ---: | ---: |
-| Agent with case lookups | 3/3 | 2/2 | 2/2 | 2/2 | 1/1 | 5/5 |
-| Single call | 2/3 | 2/2 | 2/2 | 1/2 | 1/1 | 4/5 |
+The [paired live evaluation](PILOT_EVALUATION.md) completed on 23 November 2026.
+Both workflows attempted all 66 cases. All 264 requests succeeded, and the
+policy validator flagged six single-call predictions and eight case-lookup
+predictions for withholding.
 
-The single-call run got 4/5 actions and 5/5 on each other field. It recommended
-waiting despite a confirmed proof mismatch in DED-1003. The policy check withheld
-that suggestion. The English agent rationale for DED-1004 cited warehouse receipt,
-stock, and the unconfirmed address. The agent explained the evidence for the
-Arabic DED-1003 ticket in English despite the language instruction.
+| Exact match | Development smoke | Held-out | Harder | Even harder | Total |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| Single call | 4/5 | 41/45 | 8/8 | 7/8 | 60/66 |
+| Agent with case lookups | 5/5 | 39/45 | 8/8 | 6/8 | 58/66 |
 
-The broader 66-case run stopped at a Groq rate limit. Both configurations attempted
-four of five smoke cases and one of 45 other held-out cases. The agent withheld one
-additional smoke suggestion that cited P4 instead of P5. Each challenge set has
-eight cases and zero attempts in that run. The full evaluation remains pending.
+The report includes per-field scores, language and difficulty breakdowns,
+and a grounding review of every case with a field mismatch.
