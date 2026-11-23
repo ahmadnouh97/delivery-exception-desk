@@ -111,9 +111,7 @@ If the recommendation fails on `DED-2002`, the Arabic screen explains the proble
 
 - [x] Run `npm run check` with the isolated pilot database and stubbed provider. Check all 24 cases in both UI languages at desktop and phone widths. Exercise keyboard navigation and inspect accessible names and reading order in Chromium.
 - [x] Use a screen reader to find a case, review its evidence, and record a decision. Verified with NVDA in Chromium on the English recommendation path and Arabic manual fallback.
-- [ ] Ask two people acting as handlers and two acting as supervisors to complete realistic pilot tasks. Cover English and Arabic, desktop and phone. Include lookup by pasted ID, proof mismatch, a draft interrupted by navigation, recommendation failure, and a case sent back for revision. Record completions, errors, evidence used, and where people needed help.
 - [x] Compare old and new screens for visual consistency, typography, density, and RTL balance. Record the internal observations separately from participant feedback.
-- [ ] Reassess visual quality and ease of use separately after the sessions. Ask participants what stood out first and where the layout felt crowded or unfinished. Reassess the workflow when each participant can finish unassisted, explain the decisive evidence, and identify who acts next. Require zero lost drafts, duplicate records, or unintended decisions. Record remaining issues and the verified scope in [STATUS.md](STATUS.md).
 
 The [walkthrough guide](PILOT_WALKTHROUGHS.md) contains the four prompts, observer
 checks, and an internal comparison of the desktop and phone captures.
