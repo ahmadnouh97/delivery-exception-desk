@@ -39,6 +39,8 @@ def list_cases():
             "language": case.ticket.language,
             "exception_type": case.ticket.exception_type,
             "item": case.order.item,
+            "order_id": case.order.order_id,
+            "tracking_id": case.shipment.tracking_id,
         }
         for row in rows
         for case in [evidence(row)]

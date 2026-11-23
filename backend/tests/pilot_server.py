@@ -15,6 +15,8 @@ def fixture_recommendation(case: Evidence) -> Decision:
     action, amount, review, ref = expected(case)
     if case.ticket.case_id == "DED-2001":
         rationale = "تم تسجيل التسليم قبل أقل من ٢٤ ساعة ولا يوجد إثبات متعارض."
+    elif case.ticket.case_id in {"DED-2004", "DED-2016"}:
+        rationale = "The carrier confirmed return_received."
     else:
         rationale = "The carrier confirmed receipt at the retailer warehouse."
     return Decision(

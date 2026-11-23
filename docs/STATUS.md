@@ -6,14 +6,26 @@ on startup. Set `DELIVERY_DB` to use another file. Existing decisions survive re
 
 - Select a demo handler, open a case, and generate a recommendation. Groq uses
   `GROQ_API_KEY` from the environment or the repository's `.env`.
-- Accept the recommendation or edit its rationale. If Groq is unavailable, select
-  the policy action and enter a reason. The report-time evidence determines the
-  valid action for the case.
+- Search by case, order, or tracking ID. The queue opens on work for the
+  selected role. On a phone, the queue and case open as separate views.
+- Review the key facts next to the proposed action. Each fact links to its
+  evidence. Accept the recommendation or edit its rationale. If the provider
+  fails, retry or continue manually. The report-time evidence determines the
+  valid action.
+- Unsubmitted reasons and supervisor notes survive case changes and reloads in
+  the same tab. Drafts are scoped to each case and staff member. Reload restores
+  the selected staff member, and the language preference persists across visits.
 - Refunds and replacements over SAR 500 go to supervisor review. Switch to a
   demo supervisor to approve or return the case with a note. The decision history
-  shows who submitted or reviewed it and when.
+  shows who submitted or reviewed it and when. Save confirmations identify the
+  next role and offer the next actionable case when one is available.
 - Run `npm run check` to verify the workflow. Browser and API tests use temporary
   databases and can run without a Groq key.
+
+The [UI and UX milestone](PLAN.md#ui-and-ux-improvement-plan) passed the full
+test suite and a Chromium layout check across all 24 cases, in both interface
+languages, at desktop and phone widths. Staff walkthroughs and testing with a
+screen reader are pending.
 
 ## Recommendation evaluation
 

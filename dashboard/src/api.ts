@@ -13,6 +13,8 @@ export type Summary = {
   exception_type: "delivered_not_received" | "return_to_sender";
   status: Status;
   item: string;
+  order_id: string;
+  tracking_id: string;
 };
 export type Handler = {
   handler_id: string;
@@ -49,6 +51,7 @@ export type CaseDetail = {
   evidence: {
     ticket: {
       language: Language;
+      exception_type: Summary["exception_type"];
       customer_message: string;
       reported_at: string;
       requested_refund_sar: string | null;
@@ -73,6 +76,16 @@ export type CaseDetail = {
   };
 };
 
+export class ApiError extends Error {
+  constructor(
+    public readonly status: number,
+    message: string,
+  ) {
+    super(message);
+    this.name = "ApiError";
+  }
+}
+
 export async function request<T>(
   path: string,
   options?: RequestInit,
@@ -84,7 +97,8 @@ export async function request<T>(
       error && typeof error === "object" && "detail" in error
         ? error.detail
         : null;
-    throw new Error(
+    throw new ApiError(
+      response.status,
       typeof detail === "string" ? detail : String(response.status),
     );
   }

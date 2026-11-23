@@ -16,6 +16,9 @@ def test_seeded_cases(client: TestClient):
     assert all(case["status"] == "waiting" for case in queue)
     assert client.get("/api/cases/unknown").status_code == 404
     case = client.get("/api/cases/DED-2001").json()
+    summary = next(row for row in queue if row["case_id"] == case["case_id"])
+    assert summary["order_id"] == case["evidence"]["order"]["order_id"]
+    assert summary["tracking_id"] == case["evidence"]["shipment"]["tracking_id"]
     assert "جاني" in case["evidence"]["ticket"]["customer_message"]
     assert case["evidence"]["shipment"]["proof_of_delivery"] is None
     assert "difficulty" not in str(case)

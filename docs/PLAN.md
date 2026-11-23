@@ -1,5 +1,7 @@
 # Delivery Exception Desk pilot plan
 
+The [active UI and UX milestone](#ui-and-ux-improvement-plan) follows the original pilot phases below.
+
 Build a local review workspace for missing deliveries and returns to sender. Use the 24 synthetic, prepaid, single-item cases in the working queue, with 12 tickets in each language.
 
 Requirements come from the [pilot spec](SPEC.md), [delivery policy](delivery-exception-policy.md), [operations playbook](delivery-operations-playbook.md), and [brand guidance](BRAND.md). The [data reference](../data/README.md) defines the fixture and label formats.
@@ -56,3 +58,58 @@ Reuse the scoring cells and evidence fixtures from [the baseline notebook](../la
 - [ ] Compare fixed configurations on the same cases. Pass both the same report-time evidence and document any information difference when citing the original baseline. Keep labels outside prompts and tool payloads. Report the five development smoke cases separately from the 45 other held-out cases, plus the 8 harder and 8 even-harder cases.
 - [ ] Record per-field and four-field exact match as counts and denominators, with breakdowns by Arabic/English and routine/hard/manual difficulty. Count missing predictions as misses. Record raw model errors and withheld recommendations so the displayed score cannot hide failures. Review at least one rationale from each language and each disagreement for grounding.
 - [x] Record completion and any live coverage limits in [STATUS.md](STATUS.md). The pilot is ready for a synthetic walkthrough when the workflow and policy checks pass. A quota-limited run remains a partial live benchmark, with attempted cases and total denominators reported.
+
+## UI and UX improvement plan
+
+The audit rated the pilot **7/10 overall**, with **8/10 for UI** and **6.5/10 for UX**. The current screen has a lot of pale gray space, equally prominent panels, and controls that feel visually disconnected. Redesign the workspace so it has a recognizable identity and a clear focal point. Handlers and supervisors should be able to find a case, check the decisive evidence, and record the right outcome without help in Arabic and English.
+
+Follow the [product spec](SPEC.md), [brand guidance](BRAND.md), and [delivery policy](delivery-exception-policy.md). Use the existing React and FastAPI app and the 24 synthetic cases. The pilot records human decisions and supervisor outcomes. Use report-time evidence, preserve the original ticket and audit text, and use «الطلب المُعاد» for returned orders in Arabic UI copy.
+
+### Phase 1 — Redesign the workspace
+
+Use a compact deep-teal header, a warm off-white canvas, white reading surfaces, and slate text. Give the case workspace more room than the queue, and make the recommendation the focal point through type and spacing. Amber marks pending work and supervisor review. Status labels carry the same meaning in both languages.
+
+- [x] Prototype the same `DED-2004` case at 1440px desktop and 390px mobile, in Arabic and English. On desktop, use a narrow queue with compact rows, a prominent case heading, and a wider evidence area beside the recommendation. On mobile, use a full-screen case with a compact header, decisive evidence, then the action. Use the same visual direction in both languages, with RTL-appropriate alignment and room for longer Arabic text.
+- [x] In `dashboard/src/styles.css`, set a shared palette, type scale, spacing, borders, and control styles. Start with Inter for English and Noto Sans Arabic for Arabic. Make the case heading, recommended action, evidence headings, and metadata visibly distinct. Use readable line lengths and tabular numerals for IDs. Keep separators subtle and reserve strong color for selection, meaningful warnings, and the primary action.
+- [x] In `dashboard/src/App.tsx` and `dashboard/src/CaseEvidence.tsx`, apply that hierarchy to the queue, case header, tracking timeline, and decision controls. Give selected queue rows a clear edge marker. Present tracking as a dated timeline, with a single highlight for the decisive event. Reduce repeated panel borders and labels. Keep the same button and input treatments in edit, supervisor, saved, and recovery states.
+- [x] Compare before-and-after captures for `DED-2004` and `DED-2008`, including one recovery state on `DED-2002`. Check that the queue selection, current case, and next action are immediately identifiable. Inspect alignment, text wrapping, spacing, and button prominence in both languages at desktop and phone widths. Repeat the visual review after the workflow changes in later phases.
+
+### Phase 2 — Keep unfinished work
+
+If a handler edits the reason on `DED-2004`, they can check another case and pick up where they left off. Give supervisors the same protection for review notes.
+
+- [x] Save changed handler action and reason, and changed supervisor notes, by case and staff identity in `dashboard/src/App.tsx`. Keep them in browser session storage so they survive navigation and reload in the same tab. Show a draft indicator and a **Discard draft** action that restores the case's current defaults. Clear the submitted draft after a confirmed save.
+- [x] Keep the draft on a failed save. On a `409` conflict, reload the case and ask the staff member to review the latest state before resubmitting. If the case has moved to a state where they cannot act, keep their draft available to read or discard. Prevent double submits and late responses from replacing a newly selected case.
+- [x] In `dashboard/src/App.test.tsx` and `e2e/pilot.spec.ts`, verify the edit survives opening another case, editing as another staff member, and reloading. Verify discard, successful save, failed save, and conflict recovery. Exercise the supervisor-note path using `DED-2008`.
+
+### Phase 3 — Put the decisive evidence beside the decision
+
+On `DED-2002`, show the mismatch in delivery proof before asking the handler to record an investigation. On `DED-2004`, show warehouse receipt, available stock, and the unconfirmed address next to the recommendation.
+
+- [x] In `dashboard/src/casePresentation.ts`, build concise evidence summaries from the existing case snapshot. Link each decisive fact to its source in `dashboard/src/CaseEvidence.tsx`. Cover verified prior resolution, delivery proof and scan timing, warehouse versus carrier-depot scans, and stock and address status. Show the relevant facts during manual review and supervisor review too. Use policy order when highlighting competing evidence.
+- [x] In `dashboard/src/App.tsx` and `dashboard/src/styles.css`, connect the redesigned mobile queue and case as separate views. Put decisive evidence before the submit action in both reading and keyboard order. Keep direct case links, an obvious **Back to cases** control, and one primary action per state.
+- [x] In `e2e/pilot.spec.ts`, verify proof mismatch on `DED-2002`, address confirmation on `DED-2004`, and the completed refund on `DED-2009`. Check warehouse and carrier-depot examples from the working queue. At 360px and 390px, verify the action follows the evidence, source links work, and there is no horizontal overflow. Compare Arabic and English layouts at 1440px.
+
+### Phase 4 — Find the next case and see who owns it
+
+A handler can paste `DED-TRK-2004` to find the case. After sending `DED-2008` for review, the handler sees that a supervisor acts next. A supervisor opens their queue and finds the case ready for them.
+
+- [x] Add `order_id` and `tracking_id` to `GET /api/cases` in `backend/main.py` and to `Summary` in `dashboard/src/api.ts`. Use existing snapshot fields. Keep the endpoint and current fields available. The queue in `dashboard/src/App.tsx` trims pasted IDs and matches by case, order, or tracking ID, regardless of letter case.
+- [x] Default the handler queue to `waiting` and the supervisor queue to `awaiting_supervisor`. Keep status filters and **All cases**. A search with no results in the active filter offers **Search all cases**. Mobile **Back to cases** restores the current search and filter.
+- [x] Show a confirmation using the resulting case state after each successful save. Use plain labels for decision recorded, awaiting supervisor review, and returned to handler. On a returned case, show the supervisor's reason above the handler's edit controls. Offer **Next case** from the role's actionable queue, with a clear message when that queue is empty. Keep the saved case visible until the staff member chooses to leave it.
+- [x] In `backend/tests/test_cases.py`, verify the queue IDs match the corresponding case detail. In `e2e/pilot.spec.ts`, verify all three search keys, both role defaults, and both supervisor outcomes. Verify the updated status and next case after each outcome.
+
+### Phase 5 — Make recovery clear in both languages
+
+If the recommendation fails on `DED-2002`, the Arabic screen explains the problem at the recommendation panel. The handler can retry or continue manually with the evidence still visible.
+
+- [x] Persist the selected language across reloads in `dashboard/src/App.tsx`. Map failures to localized messages and actions using operation and HTTP status in `dashboard/src/api.ts`. Keep errors next to the affected controls. Offer **Retry recommendation** for temporary errors, **Continue manually** when policy allows it, and **Reload case** for conflicts. Show a localized reason when evidence is insufficient and keep the case waiting.
+- [x] Keep original evidence in its source language and direction. Review Arabic and English copy for status, next action, and recovery. Keep IDs, policy references, Riyadh times, and SAR amounts readable in RTL. Verify keyboard focus after navigation and errors. Announce pending, failed, and saved states to screen readers. Check ordinary text contrast at 4.5:1 and visible focus indicators at 3:1 against adjacent colors.
+- [x] In `e2e/pilot.spec.ts`, using `backend/tests/pilot_server.py` and controlled response failures, verify the Arabic preference survives reload. Exercise a successful retry and a completed manual decision after a failed recommendation. Check an insufficient-evidence response, failed submission, and role or version conflict. Confirm that UI errors give the next step in the selected language.
+
+### Phase 6 — Reassess with real walkthroughs
+
+- [x] Run `npm run check` with the isolated pilot database and stubbed provider. Check all 24 cases in both UI languages at desktop and phone widths. Exercise keyboard navigation and inspect accessible names and reading order in Chromium.
+- [ ] Use a screen reader to find a case, review its evidence, and record a decision.
+- [ ] Ask two people acting as handlers and two acting as supervisors to complete realistic pilot tasks. Cover English and Arabic, desktop and phone. Include lookup by pasted ID, proof mismatch, a draft interrupted by navigation, recommendation failure, and a case sent back for revision. Record completions, errors, evidence used, and where people needed help.
+- [ ] Reassess visual quality and ease of use separately. Compare old and new screens for visual consistency, typography, density, and RTL balance. Ask participants what stood out first and where the layout felt crowded or unfinished. Reassess the workflow when each participant can finish unassisted, explain the decisive evidence, and identify who acts next. Require zero lost drafts, duplicate records, or unintended decisions. Record remaining issues and the verified scope in [STATUS.md](STATUS.md).
