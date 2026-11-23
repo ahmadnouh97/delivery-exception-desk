@@ -101,6 +101,11 @@ export function CaseQueue({
           <li key={item.case_id}>
             <button
               type="button"
+              aria-label={[
+                item.case_id,
+                t(...queueStatuses[item.status]),
+                caseType(item.exception_type, t),
+              ].join(", ")}
               aria-current={item.case_id === selected ? "true" : undefined}
               onClick={() => onSelect(item.case_id)}
             >

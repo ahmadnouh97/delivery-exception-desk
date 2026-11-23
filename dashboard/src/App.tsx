@@ -62,6 +62,7 @@ export function App() {
   const [selected, setSelected] = useState(caseInUrl);
   const visibleCase = useRef(selected);
   const focusOnNavigation = useRef(false);
+  const focusOnRecommendation = useRef(false);
   const [detail, setDetail] = useState<CaseDetail | null>(null);
   const latestVersions = useRef(new Map<string, number>());
   const [editing, setEditing] = useState(false);
@@ -152,6 +153,7 @@ export function App() {
     if (id === visibleCase.current) return;
     visibleCase.current = id;
     focusOnNavigation.current = true;
+    focusOnRecommendation.current = false;
     setFailure(null);
     setCaseLoadError(false);
     setDetail(null);
@@ -189,6 +191,7 @@ export function App() {
 
   async function change(endpoint: Operation, body?: object) {
     if (posting.current || visibleCase.current !== selected) return;
+    const trigger = document.activeElement;
     posting.current = true;
     setPending({ caseId: selected });
     setFailure(null);
@@ -198,6 +201,12 @@ export function App() {
       if (endpoint === "recommendation") {
         await post<Decision>(path + "/" + endpoint);
         value = await request<CaseDetail>(path);
+        focusOnRecommendation.current =
+          visibleCase.current === selected &&
+          value.status === "waiting" &&
+          value.recommendation !== null &&
+          (document.activeElement === trigger ||
+            document.activeElement === document.body);
       } else {
         value = await post<CaseDetail>(path + "/" + endpoint, body);
         discardDraft(draftId);
@@ -306,6 +315,10 @@ export function App() {
   useEffect(() => {
     if (failure) document.getElementById("operation-error")?.focus();
     else if (outcome) document.getElementById("outcome-message")?.focus();
+    else if (focusOnRecommendation.current) {
+      focusOnRecommendation.current = false;
+      document.getElementById("recommended-action")?.focus();
+    }
   }, [failure, outcome, detail]);
 
   function displayRationale(rationale: string) {
@@ -522,7 +535,11 @@ export function App() {
                   </h3>
                   {currentDecision && (
                     <>
-                      <p className="decision-action">
+                      <p
+                        className="decision-action"
+                        id="recommended-action"
+                        tabIndex={-1}
+                      >
                         {decisionTitle(currentDecision)}
                       </p>
                       {currentDecision.requires_review &&

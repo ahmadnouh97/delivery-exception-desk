@@ -15,6 +15,7 @@ test("reviews an Arabic ticket and accepts a recommendation", async ({
   await page.getByRole("button", { name: "العربية" }).click();
   await expect(page.getByRole("main")).toHaveAttribute("dir", "rtl");
   await page.getByRole("button", { name: "إنشاء توصية" }).click();
+  await expect(page.locator("#recommended-action")).toBeFocused();
   await expect(
     page.getByRole("link", { name: /أحدث تسجيل للتسليم/ }),
   ).toBeVisible();

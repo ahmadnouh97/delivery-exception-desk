@@ -25,8 +25,11 @@ on startup. Set `DELIVERY_DB` to use another file. Existing decisions survive re
 
 The [UI and UX milestone](PLAN.md#ui-and-ux-improvement-plan) passed the full
 test suite and a Chromium layout check across all 24 cases, in both interface
-languages, at desktop and phone widths. Staff walkthroughs and testing with a
-screen reader are pending.
+languages, at desktop and phone widths. NVDA 2026.3.1 announced search results,
+decisive evidence, and save confirmations in the English recommendation and
+Arabic manual workflows. Each run recorded one decision in the isolated database.
+The four [staff walkthroughs](PILOT_WALKTHROUGHS.md) and participant-based rating
+remain pending.
 
 ## Recommendation evaluation
 
