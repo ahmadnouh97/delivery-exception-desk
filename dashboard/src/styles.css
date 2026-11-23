@@ -403,6 +403,17 @@ time {
   font-weight: 580;
 }
 
+.case-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.15rem 1rem;
+}
+
+.case-meta strong {
+  color: var(--ink);
+  font-weight: 650;
+}
+
 .back-to-cases {
   display: none;
 }

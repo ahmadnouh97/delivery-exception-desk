@@ -8,6 +8,9 @@ test("reviews an Arabic ticket and accepts a recommendation", async ({
     "waiting",
   );
   await page.getByRole("button", { name: /DED-2001/ }).click();
+  await expect(page.locator(".case-meta")).toContainText(
+    "Reviewing as Maha A.",
+  );
   await expect(page.getByText(/جاني/)).toHaveAttribute("dir", "rtl");
   await page.getByRole("button", { name: "العربية" }).click();
   await expect(page.getByRole("main")).toHaveAttribute("dir", "rtl");
@@ -22,6 +25,7 @@ test("reviews an Arabic ticket and accepts a recommendation", async ({
   await expect(
     page.getByText("تم تسجيل القرار.", { exact: true }),
   ).toBeVisible();
+  await expect(page.locator(".case-meta")).toContainText("موظف الدعم Maha A.");
 });
 
 test("revises a replacement proposal and records supervisor approval", async ({
@@ -41,6 +45,7 @@ test("revises a replacement proposal and records supervisor approval", async ({
   ).toBeVisible();
   await expect(page.getByText(/A supervisor acts next/)).toBeVisible();
   await page.getByLabel("Demo staff").selectOption("DED-H003");
+  await expect(page.locator(".case-meta")).toContainText("Handled by Maha A.");
   await expect(page.getByLabel("Filter cases by status")).toHaveValue(
     "awaiting_supervisor",
   );
@@ -48,6 +53,7 @@ test("revises a replacement proposal and records supervisor approval", async ({
   await reviewNote.fill("Explain how the address was confirmed.");
   await page.getByLabel("Filter cases by status").selectOption("all");
   await page.getByRole("button", { name: /DED-2007/ }).click();
+  await expect(page.locator(".case-meta")).toContainText("No handler recorded");
   await page.getByRole("button", { name: /DED-2008/ }).click();
   await expect(reviewNote).toHaveValue(
     "Explain how the address was confirmed.",
@@ -64,7 +70,8 @@ test("revises a replacement proposal and records supervisor approval", async ({
   await expect(
     page.getByText("There are no more cases in your queue."),
   ).toBeVisible();
-  await page.getByLabel("Demo staff").selectOption("DED-H001");
+  await page.getByLabel("Demo staff").selectOption("DED-H002");
+  await expect(page.locator(".case-meta")).toContainText("Handled by Maha A.");
   await expect(page.locator(".review-note")).toContainText(
     "Explain how the address was confirmed.",
   );
@@ -79,6 +86,7 @@ test("revises a replacement proposal and records supervisor approval", async ({
     page.getByText("Approved. The decision has been recorded."),
   ).toBeVisible();
   await page.reload();
+  await expect(page.locator(".case-meta")).toContainText("Handled by Rami K.");
   await page.getByText("Decision history", { exact: true }).click();
   await expect(page.getByText(/Verified the replacement/)).toBeVisible();
   await expect(

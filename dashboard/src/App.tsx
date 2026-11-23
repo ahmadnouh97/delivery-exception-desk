@@ -78,7 +78,8 @@ export function App() {
   const ar = language === "ar";
   const t = (en: string, arabic: string) => (ar ? arabic : en);
   const path = "/cases/" + encodeURIComponent(selected);
-  const role = handlers.find((entry) => entry.handler_id === handler)?.role;
+  const activeStaff = handlers.find((entry) => entry.handler_id === handler);
+  const role = activeStaff?.role;
   const roleStatus: Status =
     role === "supervisor" ? "awaiting_supervisor" : "waiting";
   const busy = pending !== null;
@@ -264,6 +265,9 @@ export function App() {
   const latestSubmission = historyEntries.findLast(
     (entry) => entry.kind === "submission",
   );
+  const caseHandlerName =
+    latestSubmission?.display_name ??
+    (role === "support_agent" ? activeStaff?.display_name : undefined);
   const latestReview = historyEntries.findLast(
     (entry) => entry.kind === "supervisor",
   );
@@ -445,15 +449,31 @@ export function App() {
                 <p className="case-item">
                   <bdi>{detail.evidence.order.item}</bdi>
                 </p>
-                <p className="muted">
-                  {t("Evidence as of report time", "الأدلة وقت البلاغ")}
-                  {" · "}
-                  <time dateTime={detail.evidence.ticket.reported_at}>
-                    {formatDate(detail.evidence.ticket.reported_at, language)}
-                  </time>
-                  {" · "}
-                  {t("Riyadh time", "بتوقيت الرياض")}
-                </p>
+                <div className="case-meta muted">
+                  <p>
+                    {caseHandlerName ? (
+                      <>
+                        {latestSubmission
+                          ? t("Handled by", "موظف الدعم")
+                          : t("Reviewing as", "موظف الدعم الحالي")}{" "}
+                        <strong>
+                          <bdi>{caseHandlerName}</bdi>
+                        </strong>
+                      </>
+                    ) : (
+                      t("No handler recorded", "لم يُسجَّل موظف دعم بعد")
+                    )}
+                  </p>
+                  <p>
+                    {t("Evidence as of report time", "الأدلة وقت البلاغ")}
+                    {" · "}
+                    <time dateTime={detail.evidence.ticket.reported_at}>
+                      {formatDate(detail.evidence.ticket.reported_at, language)}
+                    </time>
+                    {" · "}
+                    {t("Riyadh time", "بتوقيت الرياض")}
+                  </p>
+                </div>
               </div>
               {outcome && (
                 <div

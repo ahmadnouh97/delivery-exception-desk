@@ -16,9 +16,10 @@ on startup. Set `DELIVERY_DB` to use another file. Existing decisions survive re
   the same tab. Drafts are scoped to each case and staff member. Reload restores
   the selected staff member, and the language preference persists across visits.
 - Refunds and replacements over SAR 500 go to supervisor review. Switch to a
-  demo supervisor to approve or return the case with a note. The decision history
-  shows who submitted or reviewed it and when. Save confirmations identify the
-  next role and offer the next actionable case when one is available.
+  demo supervisor to approve or return the case with a note. The case header
+  names the handler who last submitted a decision. The decision history shows
+  who submitted or reviewed it and when. Save confirmations identify the next
+  role and offer the next actionable case when one is available.
 - Run `npm run check` to verify the workflow. Browser and API tests use temporary
   databases and can run without a Groq key.
 
