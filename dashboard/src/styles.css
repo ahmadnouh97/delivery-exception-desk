@@ -1,0 +1,29 @@
+:root { color: #26394b; background: #edf2f3; font: 16px/1.5 system-ui, sans-serif; }
+body { margin: 0; }
+main { max-width: 1440px; margin: auto; padding: 1.5rem; }
+header, .controls { display: flex; align-items: center; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
+h1 { font-size: clamp(1.4rem, 3vw, 2rem); }
+h2 { font-size: 1.2rem; }
+h3 { font-size: 1rem; }
+.workspace { display: grid; grid-template-columns: 15rem minmax(0,1fr); gap: 1rem; }
+.case-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 1rem; align-items: start; }
+.panel, nav { background: white; padding: 1rem; border: 1px solid #d6e0e4; border-radius: .75rem; }
+.panel { overflow-wrap: anywhere; }
+nav { max-height: 75vh; overflow: auto; }
+nav button { display: block; width: 100%; text-align: start; margin-block-end: .5rem; background: #f0f5f5; color: #26394b; }
+nav button span { display: block; }
+nav button[aria-current] { background: #d7eeee; outline: 2px solid #08615c; outline-offset: -2px; }
+.status { background: #fff0cc; color: #633b00; font-size: .79rem; font-weight: 650; padding: .15em .5em; border-radius: .4em; width: fit-content; }
+.status.decided { color: #07534f; background: #d9f0ec; }
+button, select, textarea { font: inherit; border: 1px solid #adc3cb; border-radius: .4rem; padding: .5rem .7rem; }
+button { background: #08615c; color: white; cursor: pointer; }
+button:disabled { opacity: .65; cursor: default; }
+button:focus-visible, select:focus-visible, textarea:focus-visible { outline: 2px solid #0e6b99; outline-offset: 2px; }
+label { display: block; margin-block: .6rem; }
+label select, label textarea { display: block; width: 100%; box-sizing: border-box; }
+textarea { min-height: 5rem; }
+li { margin-block-end: .35rem; }
+article { border-block-start: 1px solid #d6e0e4; }
+[role="alert"] { color: #8c2d13; }
+@media (max-width: 900px) { .case-grid { grid-template-columns: 1fr; } }
+@media (max-width: 620px) { .workspace { grid-template-columns: 1fr; } nav { max-height: 16rem; } }

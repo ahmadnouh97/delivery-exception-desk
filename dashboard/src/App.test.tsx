@@ -7,16 +7,37 @@ afterEach(() => {
   vi.unstubAllGlobals();
 });
 
-it("shows when the backend is available", async () => {
-  vi.stubGlobal("fetch", vi.fn().mockResolvedValue(new Response()));
+it("shows the queue with readable case statuses", async () => {
+  vi.stubGlobal(
+    "fetch",
+    vi.fn().mockImplementation((path: string) =>
+      Promise.resolve(
+        Response.json(
+          path.endsWith("/cases")
+            ? [
+                {
+                  case_id: "DED-2001",
+                  status: "waiting",
+                  exception_type: "delivered_not_received",
+                  language: "ar",
+                },
+              ]
+            : [],
+        ),
+      ),
+    ),
+  );
   render(<App />);
-
-  expect(await screen.findByText("Backend available")).toBeDefined();
+  expect(
+    await screen.findByRole("button", {
+      name: /DED-2001.*Waiting for decision/,
+    }),
+  ).toBeDefined();
 });
 
-it("shows when the backend is unavailable", async () => {
+it("offers a retry when the backend is unavailable", async () => {
   vi.stubGlobal("fetch", vi.fn().mockRejectedValue(new Error("offline")));
   render(<App />);
-
-  expect(await screen.findByText("Backend unavailable")).toBeDefined();
+  expect(await screen.findByRole("alert")).toBeDefined();
+  expect(screen.getByRole("button", { name: "Retry" })).toBeDefined();
 });

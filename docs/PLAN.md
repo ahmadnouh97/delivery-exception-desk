@@ -45,8 +45,8 @@ Add `backend/reviews.py` for state transitions. Expose `POST /api/cases/{case_id
 
 Extend `dashboard/src/App.tsx` with the queue and case view. Add typed requests in `dashboard/src/api.ts`. The queue shows status and opens case detail. Case detail puts the recommendation and decision controls alongside the ticket, matched order, carrier timeline, proof, and prior resolutions. Show the report-time cutoff and the final recorded decision when present.
 
-- [ ] `npm run check:ts` verifies the queue, API error states, and decision form. The UI supports Arabic and English labels, sets Arabic layout to RTL, isolates IDs and policy references for legibility, and displays amounts in SAR. Render ticket text in its original language and display it and the rationale as plain text. Status colors have text labels and the forms work by keyboard.
-- [ ] `npm run e2e` verifies a handler accepting an ordinary decision, editing its rationale, and sending a P5 case to supervisor review. A supervisor approves the held case and the decision is visible after reload. Use an isolated temporary database and a stubbed recommendation provider. Exercise the manual path with a stubbed provider failure.
+- [x] `npm run check:ts` verifies the queue, API error states, and decision form. The UI supports Arabic and English labels, sets Arabic layout to RTL, isolates IDs and policy references for legibility, and displays amounts in SAR. Render ticket text in its original language and display it and the rationale as plain text. Status colors have text labels and the forms work by keyboard.
+- [x] `npm run e2e` verifies a handler accepting an ordinary decision, editing its rationale, and sending a P5 case to supervisor review. A supervisor approves the held case and the decision is visible after reload. Use an isolated temporary database and a stubbed recommendation provider. Exercise the manual path with a stubbed provider failure.
 
 ## Phase 5 — Verify the pilot and measure recommendation quality
 
