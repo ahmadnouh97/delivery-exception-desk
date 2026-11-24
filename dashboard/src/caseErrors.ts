@@ -1,7 +1,11 @@
 import type { Translate } from "./casePresentation";
 
 export type Operation = "recommendation" | "decision" | "supervisor-review";
-export type OperationError = { operation: Operation; status: number };
+export type OperationError = {
+  operation: Operation;
+  status: number;
+  retryAt?: number;
+};
 
 export function operationMessage(
   { operation, status }: OperationError,
@@ -20,6 +24,12 @@ export function operationMessage(
     );
   }
   if (operation === "recommendation") {
+    if (status === 429) {
+      return t(
+        "Recommendations are temporarily rate-limited. You can continue manually.",
+        "بلغت خدمة التوصيات حد الاستخدام مؤقتًا. يمكنك المتابعة يدويًا.",
+      );
+    }
     if (status === 422) {
       return t(
         "The evidence available at report time is insufficient. The case stays open.",

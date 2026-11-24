@@ -2,14 +2,72 @@ import json
 from threading import Event
 from unittest.mock import Mock
 
+import httpx
 import pytest
 from fastapi.testclient import TestClient
+from groq import RateLimitError
 
 from backend.evidence import Evidence
 from backend.main import app, prepare_queue, recommendation_provider
 from backend.policy import Decision, expected
 from backend.recommendations import recommend
 from labs.evaluate_pilot import load_cases
+
+
+def test_queue_retries_same_case_after_shared_cooldown(client, monkeypatch, caplog):
+    now = 100
+    monkeypatch.setattr("backend.main.monotonic", lambda: now)
+    monkeypatch.setattr("backend.main.cooldown_until", 0)
+    attempts = []
+
+    def provider(case: Evidence) -> Decision:
+        attempts.append(case.ticket.case_id)
+        if len(attempts) == 1:
+            raise RateLimitError(
+                "model request failed",
+                response=httpx.Response(
+                    429,
+                    headers={"Retry-After": "20"},
+                    request=httpx.Request("POST", "https://example.test"),
+                ),
+                body=None,
+            )
+        action, amount, review, ref = expected(case)
+        return Decision(
+            action=action,
+            refund_sar=float(amount),
+            requires_review=review,
+            policy_ref=ref,
+            rationale="Based on the report-time evidence.",
+        )
+
+    monkeypatch.setitem(
+        app.dependency_overrides, recommendation_provider, lambda: provider
+    )
+
+    def during_wait(seconds):
+        nonlocal now
+        assert seconds == 20
+        now += 7
+        for case_id in ("DED-2001", "DED-2002"):
+            response = client.post(f"/api/cases/{case_id}/recommendation")
+            assert response.status_code == 429
+            assert response.headers["Retry-After"] == "13"
+        assert attempts == ["DED-2001"]
+        now += 13
+        return False
+
+    stop = Mock(spec=Event)
+    stop.is_set.return_value = False
+    stop.wait.side_effect = during_wait
+    prepare_queue(stop, provider)
+    stop.wait.assert_called_once()
+    assert attempts[:3] == ["DED-2001", "DED-2001", "DED-2002"]
+    assert client.get("/api/cases/DED-2001").json()["recommendation"] is not None
+    assert (
+        "case=DED-2001 exception=RateLimitError upstream_status=429 retry_after='20'"
+        in caplog.text
+    )
 
 
 @pytest.mark.parametrize("with_tools", [False, True])

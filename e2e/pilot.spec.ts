@@ -323,6 +323,32 @@ test("retries a recommendation and keeps a case open when evidence is insufficie
   ).toBeVisible();
 });
 
+test("shows the shared retry interval and keeps manual review available", async ({
+  page,
+}) => {
+  await page.clock.install();
+  await page.route("**/api/cases/DED-2017/recommendation", (route) =>
+    route.fulfill({ status: 429, headers: { "Retry-After": "20" } }),
+  );
+  await page.goto("/?case=DED-2017");
+  await expect(page.getByRole("alert")).toContainText(
+    "temporarily rate-limited",
+  );
+  await expect(page.getByRole("button", { name: /Retry in/ })).toBeDisabled();
+  await page.getByRole("button", { name: "العربية" }).click();
+  await expect(page.getByRole("alert")).toContainText("حد الاستخدام");
+  await expect(
+    page.getByRole("button", { name: "المتابعة يدويًا" }),
+  ).toBeEnabled();
+  await expect(
+    page.getByRole("button", { name: /أعد المحاولة بعد/ }),
+  ).toBeDisabled();
+  await page.clock.fastForward(20000);
+  await expect(
+    page.getByRole("button", { name: "إعادة محاولة إنشاء التوصية" }),
+  ).toBeEnabled();
+});
+
 test("does not replace the current case when a recommendation returns late", async ({
   page,
 }) => {

@@ -1,5 +1,11 @@
 # Delivery Exception Desk pilot plan
 
+## Groq rate-limit recovery
+
+- [x] Log provider failures and share the upstream retry interval between queue preparation and case requests.
+- [x] Verify interrupted queue work resumes, cooldown requests avoid the provider, and the bilingual dashboard preserves manual review.
+- [x] Run the full project check.
+
 ## November 23 recommendation follow-up
 
 - [x] Give both recommendation workflows explicit report-time facts for the P1 completion check, P2 proof and wait checks, and P5 threshold.

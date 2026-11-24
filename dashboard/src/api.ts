@@ -80,6 +80,7 @@ export class ApiError extends Error {
   constructor(
     public readonly status: number,
     message: string,
+    public readonly retryAfterSeconds = 0,
   ) {
     super(message);
     this.name = "ApiError";
@@ -100,6 +101,7 @@ export async function request<T>(
     throw new ApiError(
       response.status,
       typeof detail === "string" ? detail : String(response.status),
+      Number(response.headers.get("Retry-After")) || 0,
     );
   }
   return (await response.json()) as T;

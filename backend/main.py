@@ -1,14 +1,17 @@
 import asyncio
 import logging
+import math
 import os
 import sqlite3
 from collections.abc import AsyncIterator
 from contextlib import asynccontextmanager
+from email.utils import parsedate_to_datetime
 from threading import Event, Lock
+from time import monotonic, time
 from typing import Annotated
 
 from fastapi import Depends, FastAPI, HTTPException
-from groq import APIError
+from groq import APIError, APIStatusError
 
 from backend.database import connect, evidence, seed
 from backend.evidence import Handler, read_records
@@ -17,6 +20,38 @@ from backend.recommendations import Provider, recommend
 from backend.reviews import Submission, SupervisorReview, detail, find_case, record
 
 case_locks: dict[str, Lock] = {}
+cooldown_lock = Lock()
+cooldown_until = 0.0
+logger = logging.getLogger(__name__)
+
+
+def retry_delay(header: str | None) -> int:
+    if header:
+        try:
+            seconds = float(header)
+        except ValueError:
+            try:
+                seconds = parsedate_to_datetime(header).timestamp() - time()
+            except (ValueError, TypeError, OverflowError, OSError):
+                return 60
+        if math.isfinite(seconds):
+            return max(1, math.ceil(seconds))
+    return 60
+
+
+def check_cooldown(extend_by: int = 0) -> None:
+    global cooldown_until
+    with cooldown_lock:
+        now = monotonic()
+        if extend_by:
+            cooldown_until = max(cooldown_until, now + extend_by)
+        remaining = math.ceil(cooldown_until - now)
+    if remaining > 0:
+        raise HTTPException(
+            429,
+            f"Recommendation rate-limited. Retry in {remaining} seconds.",
+            headers={"Retry-After": str(remaining)},
+        )
 
 
 def prepare_queue(stop: Event, provider: Provider) -> None:
@@ -25,14 +60,20 @@ def prepare_queue(stop: Event, provider: Provider) -> None:
             "SELECT case_id FROM cases WHERE status = 'waiting' AND recommendation IS NULL ORDER BY case_id"
         ).fetchall()
     for row in rows:
-        if stop.is_set():
+        while not stop.is_set():
+            try:
+                generate(row["case_id"], provider)
+                break
+            except HTTPException as error:
+                if error.status_code == 429 and error.headers:
+                    # Recheck long cooldowns periodically and wake immediately on shutdown.
+                    if stop.wait(min(3600, int(error.headers["Retry-After"]))):
+                        return
+                    continue
+                logger.info("Skipped %s (HTTP %s)", row["case_id"], error.status_code)
+                break
+        else:
             return
-        try:
-            generate(row["case_id"], provider)
-        except HTTPException as error:
-            logging.getLogger(__name__).info(
-                "Skipped %s (HTTP %s)", row["case_id"], error.status_code
-            )
 
 
 @asynccontextmanager
@@ -118,9 +159,25 @@ def prepare_case(case_id: str, provider: Provider) -> Decision:
         fields = expected(case)
     except ValueError as error:
         raise HTTPException(422, str(error)) from error
+    check_cooldown()
     try:
         result = provider(case)
     except (APIError, ValueError) as error:
+        status = error.status_code if isinstance(error, APIStatusError) else None
+        retry_after = (
+            error.response.headers.get("retry-after")
+            if isinstance(error, APIStatusError)
+            else None
+        )
+        logger.warning(
+            "Recommendation failed case=%s exception=%s upstream_status=%s retry_after=%r",
+            case_id,
+            type(error).__name__,
+            status,
+            retry_after,
+        )
+        if status == 429:
+            check_cooldown(retry_delay(retry_after))
         raise HTTPException(
             503, "Recommendation unavailable. Retry or record a manual decision."
         ) from error

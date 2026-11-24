@@ -8,6 +8,12 @@ on startup. Set `DELIVERY_DB` to use another file. Existing decisions survive re
   saves them in SQLite. Opening a case early starts or joins its preparation.
   Groq uses
   `GROQ_API_KEY` from the environment or the repository's `.env`.
+- A Groq 429 pauses new recommendation generation across the local backend
+  process. The queue retries the interrupted case after Groq's `Retry-After`
+  interval (60 seconds if absent or unreadable). Uncached requests receive
+  HTTP 429 with the remaining interval. The dashboard shows a retry countdown
+  and offers manual review. Provider failure logs include the case ID,
+  exception type, upstream status, and retry header.
 - Search by case, order, or tracking ID. The queue opens on work for the
   selected role. On a phone, the queue and case open as separate views.
 - Review the key facts next to the proposed action. Each fact links to its

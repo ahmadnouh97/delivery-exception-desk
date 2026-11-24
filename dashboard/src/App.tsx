@@ -73,6 +73,18 @@ export function App() {
   const [loadError, setLoadError] = useState(false);
   const [caseLoadError, setCaseLoadError] = useState(false);
   const [failure, setFailure] = useState<OperationError | null>(null);
+  const [clock, setClock] = useState(0);
+  const retryAt = failure?.retryAt ?? 0;
+  const secondsLeft = Math.max(0, Math.ceil((retryAt - clock) / 1000));
+  useEffect(() => {
+    if (!retryAt) return;
+    const timer = window.setInterval(() => {
+      const now = Date.now();
+      setClock(now);
+      if (now >= retryAt) window.clearInterval(timer);
+    }, 1000);
+    return () => window.clearInterval(timer);
+  }, [retryAt]);
   const [outcome, setOutcome] = useState<Outcome | null>(null);
   const [reload, setReload] = useState(0);
   const [reloadCase, setReloadCase] = useState(0);
@@ -301,11 +313,18 @@ export function App() {
         if (active) show(value);
       })
       .catch((error: unknown) => {
-        if (active)
+        if (active) {
+          const now = Date.now();
+          setClock(now);
           setFailure({
             operation: "recommendation",
             status: error instanceof ApiError ? error.status : 0,
+            retryAt:
+              error instanceof ApiError && error.status === 429
+                ? now + error.retryAfterSeconds * 1000
+                : undefined,
           });
+        }
       });
     return () => {
       active = false;
@@ -642,16 +661,21 @@ export function App() {
                         ![409, 422, 502].includes(failure.status) && (
                           <button
                             type="button"
-                            disabled={busy}
+                            disabled={busy || secondsLeft > 0}
                             onClick={() => {
                               setFailure(null);
                               setAttempt((value) => value + 1);
                             }}
                           >
-                            {t(
-                              "Retry recommendation",
-                              "إعادة محاولة إنشاء التوصية",
-                            )}
+                            {secondsLeft > 0
+                              ? t(
+                                  `Retry in ${secondsLeft}s`,
+                                  `أعد المحاولة بعد ${secondsLeft} ث`,
+                                )
+                              : t(
+                                  "Retry recommendation",
+                                  "إعادة محاولة إنشاء التوصية",
+                                )}
                           </button>
                         )}
                       {recommendationFailed && canStartManual && (
