@@ -33,7 +33,7 @@ npm exec -- vite dashboard --host 192.168.1.20 --port 5174 --strictPort
 
 Start at the case queue with the language and demo role shown below. Record the
 device used. Label desktop mobile emulation as a dry run. For supervisor tasks,
-prepare the relevant case first as a demo handler. Generate its recommendation
+prepare the relevant case first as a demo handler. Review its recommendation
 and send it for supervisor review. Use a brief handler reason for S1 that gives
 no evidence for the shipping address.
 
@@ -41,8 +41,8 @@ no evidence for the shipping address.
 
 | Session | Setup | Task prompt |
 | --- | --- | --- |
-| H1 | Handler, English, desktop | Find the case for tracking ID DED-TRK-2004. Generate a recommendation and draft your reason. Open another case, then return and finish your decision. Say what evidence supports it. |
-| H2 | Handler, Arabic, phone | ابحث عن الشحنة برقم التتبع DED-TRK-2002 وحاول إنشاء توصية. راجع الأدلة، ثم سجّل الإجراء المناسب. اشرح ما الذي اعتمدت عليه. |
+| H1 | Handler, English, desktop | Find the case for tracking ID DED-TRK-2004. Review the recommendation and draft your reason. Open another case, then return and finish your decision. Say what evidence supports it. |
+| H2 | Handler, Arabic, phone | ابحث عن الشحنة برقم التتبع DED-TRK-2002 وافتح الحالة. راجع الأدلة، ثم سجّل الإجراء المناسب. اشرح ما الذي اعتمدت عليه. |
 | S1 | Supervisor, English, phone | Find DED-2008 in your queue. The team needs the handler to explain how they verified the shipping address. Send the case back with a note that tells the handler what to add. |
 | S2 | Supervisor, Arabic, desktop | افتح الحالة DED-2011 من قائمة المراجعة. راجع المبلغ والأدلة، واتخذ قرارك. اشرح سبب القرار ومن عليه اتخاذ الخطوة التالية. |
 

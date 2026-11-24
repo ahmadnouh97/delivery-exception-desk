@@ -62,7 +62,7 @@ export function App() {
   const [selected, setSelected] = useState(caseInUrl);
   const visibleCase = useRef(selected);
   const focusOnNavigation = useRef(false);
-  const focusOnRecommendation = useRef(false);
+  const [attempt, setAttempt] = useState(0);
   const [detail, setDetail] = useState<CaseDetail | null>(null);
   const latestVersions = useRef(new Map<string, number>());
   const [editing, setEditing] = useState(false);
@@ -153,7 +153,6 @@ export function App() {
     if (id === visibleCase.current) return;
     visibleCase.current = id;
     focusOnNavigation.current = true;
-    focusOnRecommendation.current = false;
     setFailure(null);
     setCaseLoadError(false);
     setDetail(null);
@@ -189,40 +188,30 @@ export function App() {
     openCase(id);
   }
 
-  async function change(endpoint: Operation, body?: object) {
+  async function change(
+    endpoint: Exclude<Operation, "recommendation">,
+    body?: object,
+  ) {
     if (posting.current || visibleCase.current !== selected) return;
-    const trigger = document.activeElement;
     posting.current = true;
     setPending({ caseId: selected });
     setFailure(null);
     setOutcome(null);
     try {
-      let value: CaseDetail;
-      if (endpoint === "recommendation") {
-        await post<Decision>(path + "/" + endpoint);
-        value = await request<CaseDetail>(path);
-        focusOnRecommendation.current =
-          visibleCase.current === selected &&
-          value.status === "waiting" &&
-          value.recommendation !== null &&
-          (document.activeElement === trigger ||
-            document.activeElement === document.body);
-      } else {
-        value = await post<CaseDetail>(path + "/" + endpoint, body);
-        discardDraft(draftId);
-        if (visibleCase.current === selected) {
-          setEditing(false);
-          setManual(false);
-          setOutcome(
-            value.status === "awaiting_supervisor"
-              ? "sent"
-              : value.status === "waiting"
-                ? "returned"
-                : endpoint === "supervisor-review"
-                  ? "approved"
-                  : "recorded",
-          );
-        }
+      const value = await post<CaseDetail>(path + "/" + endpoint, body);
+      discardDraft(draftId);
+      if (visibleCase.current === selected) {
+        setEditing(false);
+        setManual(false);
+        setOutcome(
+          value.status === "awaiting_supervisor"
+            ? "sent"
+            : value.status === "waiting"
+              ? "returned"
+              : endpoint === "supervisor-review"
+                ? "approved"
+                : "recorded",
+        );
       }
       show(value);
     } catch (error) {
@@ -300,6 +289,29 @@ export function App() {
     detail?.status === "waiting" && role === "support_agent" && !recommendation;
   const canStartManual =
     canGenerate && ![409, 422].includes(failure?.status ?? 0);
+  const needsRecommendation =
+    canGenerate && detail?.case_id === selected && !showManual;
+
+  useEffect(() => {
+    if (!needsRecommendation) return;
+    let active = true;
+    void post<Decision>(path + "/recommendation")
+      .then(() => request<CaseDetail>(path))
+      .then((value) => {
+        if (active) show(value);
+      })
+      .catch((error: unknown) => {
+        if (active)
+          setFailure({
+            operation: "recommendation",
+            status: error instanceof ApiError ? error.status : 0,
+          });
+      });
+    return () => {
+      active = false;
+    };
+  }, [needsRecommendation, path, handler, attempt]);
+
   const facts = detail ? decisionEvidence(detail.evidence, language, t) : [];
 
   function resetDraft() {
@@ -313,12 +325,9 @@ export function App() {
   }
 
   useEffect(() => {
-    if (failure) document.getElementById("operation-error")?.focus();
+    if (failure && failure.operation !== "recommendation")
+      document.getElementById("operation-error")?.focus();
     else if (outcome) document.getElementById("outcome-message")?.focus();
-    else if (focusOnRecommendation.current) {
-      focusOnRecommendation.current = false;
-      document.getElementById("recommended-action")?.focus();
-    }
   }, [failure, outcome, detail]);
 
   function displayRationale(rationale: string) {
@@ -533,8 +542,8 @@ export function App() {
                         ? t("Proposed decision", "القرار المقترح")
                         : t("Recorded decision", "القرار المسجّل")}
                   </h3>
-                  {currentDecision && (
-                    <>
+                  <div aria-live="polite" aria-atomic="true">
+                    {currentDecision && (
                       <p
                         className="decision-action"
                         id="recommended-action"
@@ -542,6 +551,10 @@ export function App() {
                       >
                         {decisionTitle(currentDecision)}
                       </p>
+                    )}
+                  </div>
+                  {currentDecision && (
+                    <>
                       {currentDecision.requires_review &&
                         detail.status !== "decided" && (
                           <p className="status awaiting_supervisor">
@@ -608,6 +621,7 @@ export function App() {
                           className="secondary"
                           onClick={() => {
                             setFailure(null);
+                            setDetail(null);
                             refreshCase();
                           }}
                         >
@@ -619,22 +633,28 @@ export function App() {
 
                   {canGenerate && !showManual && (
                     <div className="decision-controls">
-                      {(!recommendationFailed ||
-                        ![409, 422, 502].includes(failure.status)) && (
-                        <button
-                          type="button"
-                          disabled={busy}
-                          onClick={() => void change("recommendation")}
-                        >
-                          {recommendationFailed
-                            ? t(
-                                "Retry recommendation",
-                                "إعادة محاولة إنشاء التوصية",
-                              )
-                            : t("Generate recommendation", "إنشاء توصية")}
-                        </button>
+                      {!recommendationFailed && (
+                        <p className="working" role="status">
+                          {t("Preparing recommendation…", "جارٍ إعداد التوصية…")}
+                        </p>
                       )}
-                      {canStartManual && (
+                      {recommendationFailed &&
+                        ![409, 422, 502].includes(failure.status) && (
+                          <button
+                            type="button"
+                            disabled={busy}
+                            onClick={() => {
+                              setFailure(null);
+                              setAttempt((value) => value + 1);
+                            }}
+                          >
+                            {t(
+                              "Retry recommendation",
+                              "إعادة محاولة إنشاء التوصية",
+                            )}
+                          </button>
+                        )}
+                      {recommendationFailed && canStartManual && (
                         <button
                           type="button"
                           className={

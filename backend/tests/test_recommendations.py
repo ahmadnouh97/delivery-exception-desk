@@ -1,7 +1,9 @@
+from threading import Event
+
 from fastapi.testclient import TestClient
 
 from backend.evidence import Evidence
-from backend.main import app, recommendation_provider
+from backend.main import app, prepare_queue, recommendation_provider
 from backend.policy import Decision
 
 
@@ -65,3 +67,33 @@ def test_late_recommendation_cannot_replace_manual_decision(client: TestClient):
         assert len(case["history"]) == 1
     finally:
         app.dependency_overrides.clear()
+
+
+def test_queue_prepares_and_reuses_valid_recommendations(client: TestClient):
+    from backend.policy import expected
+
+    attempts: list[str] = []
+
+    def provider(case: Evidence) -> Decision:
+        attempts.append(case.ticket.case_id)
+        if case.ticket.case_id == "DED-2002":
+            raise ValueError("unavailable")
+        action, amount, review, policy = expected(case)
+        return Decision(
+            action=action,
+            refund_sar=float(amount),
+            requires_review=review,
+            policy_ref=policy,
+            rationale="Based on the report-time evidence.",
+        )
+
+    prepare_queue(Event(), provider)
+    cases = client.get("/api/cases").json()
+    assert len(attempts) == len(cases) == 24
+    for entry in cases:
+        case = client.get("/api/cases/" + entry["case_id"]).json()
+        assert bool(case["recommendation"]) == (case["case_id"] != "DED-2002")
+        assert case["status"] == "waiting" and not case["history"]
+    attempts.clear()
+    prepare_queue(Event(), provider)
+    assert attempts == ["DED-2002"]

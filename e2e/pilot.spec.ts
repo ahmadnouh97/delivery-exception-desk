@@ -14,8 +14,7 @@ test("reviews an Arabic ticket and accepts a recommendation", async ({
   await expect(page.getByText(/جاني/)).toHaveAttribute("dir", "rtl");
   await page.getByRole("button", { name: "العربية" }).click();
   await expect(page.getByRole("main")).toHaveAttribute("dir", "rtl");
-  await page.getByRole("button", { name: "إنشاء توصية" }).click();
-  await expect(page.locator("#recommended-action")).toBeFocused();
+  await expect(page.locator("#recommended-action")).toBeVisible();
   await expect(
     page.getByRole("link", { name: /أحدث تسجيل للتسليم/ }),
   ).toBeVisible();
@@ -33,7 +32,6 @@ test("revises a replacement proposal and records supervisor approval", async ({
   page,
 }) => {
   await page.goto("/?case=DED-2008");
-  await page.getByRole("button", { name: "Generate recommendation" }).click();
   await expect(page.getByText("Supervisor review required")).toBeVisible();
   await page.getByRole("button", { name: "Edit reason" }).click();
   await expect(page.getByLabel("Reason")).toBeFocused();
@@ -122,7 +120,6 @@ test("shows concise evidence and filters the queue across languages", async ({
   await expect(
     page.getByText("Delivery attempted", { exact: true }),
   ).toBeHidden();
-  await page.getByRole("button", { name: "Generate recommendation" }).click();
   await expect(
     page.getByText("Request confirmation of the new delivery address"),
   ).toBeVisible();
@@ -182,9 +179,7 @@ test("records a manual decision when the service is unavailable", async ({
   await expect(
     page.getByRole("link", { name: "إثبات التسليم لا يطابق الشحنة" }),
   ).toHaveAttribute("href", "#evidence-proof");
-  await page.getByRole("button", { name: "إنشاء توصية" }).click();
   await expect(page.getByRole("alert")).toContainText("التوصية غير متاحة");
-  await expect(page.getByRole("alert")).toBeFocused();
   await expect(
     page.getByRole("button", { name: "إعادة محاولة إنشاء التوصية" }),
   ).toBeVisible();
@@ -205,7 +200,6 @@ test("preserves drafts by case and staff through reload and save errors", async 
   page,
 }) => {
   await page.goto("/?case=DED-2020");
-  await page.getByRole("button", { name: "Generate recommendation" }).click();
   await page.getByRole("button", { name: "Edit reason" }).click();
   const reason = page.getByLabel("Reason");
   await reason.fill(
@@ -309,7 +303,6 @@ test("retries a recommendation and keeps a case open when evidence is insufficie
       name: "The last return scan was at the carrier depot.",
     }),
   ).toBeVisible();
-  await page.getByRole("button", { name: "Generate recommendation" }).click();
   await page.getByRole("button", { name: "Retry recommendation" }).click();
   await expect(
     page.getByText("Wait for update", { exact: true }),
@@ -319,7 +312,6 @@ test("retries a recommendation and keeps a case open when evidence is insufficie
     route.fulfill({ status: 422 }),
   );
   await page.goto("/?case=DED-2015");
-  await page.getByRole("button", { name: "Generate recommendation" }).click();
   await expect(page.getByRole("alert")).toContainText(
     "The evidence available at report time is insufficient",
   );
@@ -338,19 +330,19 @@ test("does not replace the current case when a recommendation returns late", asy
   const responseReady = new Promise<void>((resolve) => {
     finishRequest = resolve;
   });
-  await page.route("**/api/cases/DED-2005/recommendation", async (route) => {
+  await page.route("**/api/cases/DED-2013/recommendation", async (route) => {
     await responseReady;
     await route.continue();
   });
-  await page.goto("/?case=DED-2005");
-  await page.getByRole("button", { name: "Generate recommendation" }).click();
+  await page.goto("/?case=DED-2013");
+  await expect(page.getByText("Preparing recommendation…")).toBeVisible();
   await page.getByRole("button", { name: /DED-2006/ }).click();
   await expect(page.getByRole("heading", { name: /DED-2006/ })).toBeVisible();
-  const response = page.waitForResponse("**/api/cases/DED-2005");
+  const response = page.waitForResponse("**/api/cases/DED-2013");
   finishRequest();
   await response;
   await expect(
-    page.getByRole("button", { name: "Generate recommendation" }),
+    page.getByRole("button", { name: "Accept recommendation" }),
   ).toBeEnabled();
   await expect(page.getByRole("heading", { name: /DED-2006/ })).toBeVisible();
 });
@@ -359,7 +351,6 @@ test("keeps a draft readable when another handler records the decision first", a
   page,
 }) => {
   await page.goto("/?case=DED-2021");
-  await page.getByRole("button", { name: "Generate recommendation" }).click();
   await page.getByRole("button", { name: "Edit reason" }).click();
   await page.getByLabel("Reason").fill("Draft from the first handler.");
 
@@ -391,6 +382,11 @@ test("keeps a draft readable when another handler records the decision first", a
 test("keeps a manual draft editable when a recommendation arrives later", async ({
   page,
 }) => {
+  await page.route(
+    "**/api/cases/DED-2016/recommendation",
+    (route) => route.fulfill({ status: 503 }),
+    { times: 1 },
+  );
   await page.goto("/?case=DED-2016");
   await page.getByRole("button", { name: "Continue manually" }).click();
   const actions = page.getByRole("combobox", { name: /^Action/ });

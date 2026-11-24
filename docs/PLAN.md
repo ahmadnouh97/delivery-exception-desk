@@ -8,7 +8,7 @@ Requirements come from the [pilot spec](SPEC.md), [delivery policy](delivery-exc
 
 ## Implementation decisions
 
-- Use the existing FastAPI and React entry points, SQLite via `sqlite3`, and the notebook's LangChain, Groq, and Pydantic setup. Generate recommendations on demand for one case at a time. A handler confirms or revises a recommendation before the case proceeds.
+- Use the existing FastAPI and React entry points, SQLite via `sqlite3`, and the notebook's LangChain, Groq, and Pydantic setup. Prepare waiting cases in the background and prioritize cases opened by a handler. A handler confirms or revises a recommendation before the case proceeds.
 - Keep evidence snapshots read-only. Save the recommendation, handler submission, and supervisor outcome as separate records in SQLite so reviewers can see what changed, who recorded it, and when. Use the fixture identities as a labeled staff selector for the local demo. Real sign-in belongs to a later deployment.
 - The pilot ends at a recorded human decision. Refunds, replacements, carrier requests, and customer messages remain outside this milestone.
 - Before coding each phase, check Context7 against the installed library versions used by that phase. Run Python through `uv run` on Python 3.12. After each phase, run its checks, mark verified items here, update [STATUS.md](STATUS.md), and commit the phase per [PROCESS.md](PROCESS.md).

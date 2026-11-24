@@ -1,6 +1,10 @@
+import asyncio
+import logging
+import os
 import sqlite3
 from collections.abc import AsyncIterator
 from contextlib import asynccontextmanager
+from threading import Event, Lock
 from typing import Annotated
 
 from fastapi import Depends, FastAPI, HTTPException
@@ -12,11 +16,41 @@ from backend.policy import Decision, expected
 from backend.recommendations import Provider, recommend
 from backend.reviews import Submission, SupervisorReview, detail, find_case, record
 
+case_locks: dict[str, Lock] = {}
+
+
+def prepare_queue(stop: Event, provider: Provider) -> None:
+    with connect() as db:
+        rows = db.execute(
+            "SELECT case_id FROM cases WHERE status = 'waiting' AND recommendation IS NULL ORDER BY case_id"
+        ).fetchall()
+    for row in rows:
+        if stop.is_set():
+            return
+        try:
+            generate(row["case_id"], provider)
+        except HTTPException as error:
+            logging.getLogger(__name__).info(
+                "Skipped %s (HTTP %s)", row["case_id"], error.status_code
+            )
+
 
 @asynccontextmanager
-async def lifespan(_: FastAPI) -> AsyncIterator[None]:
+async def lifespan(application: FastAPI) -> AsyncIterator[None]:
     seed()
-    yield
+    if os.environ.get("DELIVERY_PREPARE_QUEUE") == "0":
+        yield
+        return
+    stop = Event()
+    factory = application.dependency_overrides.get(
+        recommendation_provider, recommendation_provider
+    )
+    worker = asyncio.create_task(asyncio.to_thread(prepare_queue, stop, factory()))
+    try:
+        yield
+    finally:
+        stop.set()
+        await worker
 
 
 app = FastAPI(title="Delivery Exception Desk", lifespan=lifespan)
@@ -66,6 +100,13 @@ def recommendation_provider() -> Provider:
 def generate(
     case_id: str, provider: Annotated[Provider, Depends(recommendation_provider)]
 ) -> Decision:
+    with connect() as db:
+        row = find_case(db, case_id)
+    with case_locks.setdefault(row["case_id"], Lock()):
+        return prepare_case(case_id, provider)
+
+
+def prepare_case(case_id: str, provider: Provider) -> Decision:
     with connect() as db:
         row = find_case(db, case_id)
     if row["status"] != "waiting":

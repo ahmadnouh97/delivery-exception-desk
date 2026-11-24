@@ -4,7 +4,9 @@ The local pilot supports the [review workflow](SPEC.md) over 24 synthetic cases.
 `npm run dev` and open `http://127.0.0.1:5173`. The backend seeds `delivery.sqlite3`
 on startup. Set `DELIVERY_DB` to use another file. Existing decisions survive restart.
 
-- Select a demo handler, open a case, and generate a recommendation. Groq uses
+- The backend prepares recommendations for waiting cases in the background and
+  saves them in SQLite. Opening a case early starts or joins its preparation.
+  Groq uses
   `GROQ_API_KEY` from the environment or the repository's `.env`.
 - Search by case, order, or tracking ID. The queue opens on work for the
   selected role. On a phone, the queue and case open as separate views.
