@@ -66,17 +66,6 @@ export const proofAssessments: Record<string, [string, string]> = {
   inconclusive: ["Proof is inconclusive", "إثبات التسليم غير حاسم"],
 };
 
-export const policyRules: Record<string, [string, string]> = {
-  P1: ["Check prior resolutions", "التحقق من الحلول السابقة"],
-  P2: ["Delivered but not received", "تم التسليم والعميل لم يستلم"],
-  P3: ["Return still in transit", "الطلب المُعاد لا يزال في الطريق"],
-  P4: ["Return received at the warehouse", "استلام الطلب المُعاد في المستودع"],
-  P5: [
-    "Supervisor approval for high-value orders",
-    "موافقة المشرف للطلبات مرتفعة القيمة",
-  ],
-};
-
 export function formatDate(value: string, language: Language) {
   return new Intl.DateTimeFormat(
     language === "ar" ? "ar-SA-u-ca-gregory" : "en-GB",

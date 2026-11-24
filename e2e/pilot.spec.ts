@@ -125,7 +125,15 @@ test("shows concise evidence and filters the queue across languages", async ({
   ).toBeVisible();
   await expect(page.getByText(/Refund.*0\.00/)).toHaveCount(0);
   await expect(page.getByRole("textbox", { name: "Reason" })).toHaveCount(0);
+  const policy = page.locator(".policy-details").first();
+  await policy.locator("summary").press("Enter");
+  await expect(policy.getByRole("list")).toContainText(
+    "Refund the full order total",
+  );
   await page.getByRole("button", { name: "العربية" }).click();
+  await expect(policy.getByRole("list")).toContainText("أعِد كامل مبلغ الطلب");
+  await policy.locator("summary").press("Space");
+  await expect(policy.getByRole("list")).toBeHidden();
   await expect(page.locator(".decision-facts li")).toHaveText([
     "عنوان الشحن الجديد بحاجة لتأكيد.",
     "البديل متوفر.",

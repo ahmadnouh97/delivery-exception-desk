@@ -20,7 +20,8 @@ on startup. Set `DELIVERY_DB` to use another file. Existing decisions survive re
 - Search by case, order, or tracking ID. The queue opens on work for the
   selected role. On a phone, the queue and case open as separate views.
 - Review the key facts next to the proposed action. Each fact links to its
-  evidence. Accept the recommendation or edit its rationale. If the provider
+  evidence. Expand a policy reference beside a recommendation or in the decision
+  history to read the rule in English or Arabic. Accept the recommendation or edit its rationale. If the provider
   fails, retry or continue manually. The report-time evidence determines the
   valid action.
 - Unsubmitted reasons and supervisor notes survive case changes and reloads in

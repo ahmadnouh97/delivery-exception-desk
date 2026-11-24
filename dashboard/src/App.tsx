@@ -9,6 +9,7 @@ import type {
   Summary,
 } from "./api";
 import { CaseEvidence } from "./CaseEvidence";
+import { PolicyDetails } from "./PolicyDetails";
 import {
   loadDeskStaff,
   rememberDeskStaff,
@@ -22,7 +23,6 @@ import {
   decisionEvidence,
   formatDate,
   money,
-  policyRules,
   readableRecommendation,
   statuses,
 } from "./casePresentation";
@@ -583,12 +583,7 @@ export function App() {
                             )}
                           </p>
                         )}
-                      <p className="decision-policy">
-                        <bdi dir="ltr">{currentDecision.policy_ref}</bdi>
-                        {" · "}
-                        {policyRules[currentDecision.policy_ref] &&
-                          t(...policyRules[currentDecision.policy_ref])}
-                      </p>
+                      <PolicyDetails code={currentDecision.policy_ref} t={t} />
                       {currentDecision.policy_ref === "P5" &&
                         currentDecision.action !== "refund" && (
                           <p className="decision-policy">
@@ -931,10 +926,12 @@ export function App() {
                           {entry.kind === "submission" ? (
                             <>
                               <p>
-                                <strong>{decisionTitle(entry.decision)}</strong>{" "}
-                                ·{" "}
-                                <bdi dir="ltr">{entry.decision.policy_ref}</bdi>
+                                <strong>{decisionTitle(entry.decision)}</strong>
                               </p>
+                              <PolicyDetails
+                                code={entry.decision.policy_ref}
+                                t={t}
+                              />
                               <p className="source-text" dir="auto">
                                 {entry.decision.rationale}
                               </p>
@@ -966,6 +963,10 @@ export function App() {
                             </strong>{" "}
                             · {decisionTitle(recommendation)}
                           </p>
+                          <PolicyDetails
+                            code={recommendation.policy_ref}
+                            t={t}
+                          />
                           <p className="source-text" dir="auto">
                             {recommendation.rationale}
                           </p>
