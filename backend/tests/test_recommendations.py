@@ -1,10 +1,58 @@
+import json
 from threading import Event
+from unittest.mock import Mock
 
+import pytest
 from fastapi.testclient import TestClient
 
 from backend.evidence import Evidence
 from backend.main import app, prepare_queue, recommendation_provider
-from backend.policy import Decision
+from backend.policy import Decision, expected
+from backend.recommendations import recommend
+from labs.evaluate_pilot import load_cases
+
+
+@pytest.mark.parametrize("with_tools", [False, True])
+@pytest.mark.parametrize(
+    ("case_id", "seconds", "proof", "elapsed", "above_threshold"),
+    [
+        ("DED-1006", 86340, "inconclusive", False, False),
+        ("DED-1031", 1620, "unavailable", False, False),
+        ("DED-4003", 102180, "inconclusive", True, False),
+        ("DED-4005", None, "unavailable", None, True),
+    ],
+)
+def test_november_policy_facts(
+    case_id, seconds, proof, elapsed, above_threshold, with_tools
+):
+    _, case, label = next(
+        row for row in load_cases() if row[1].ticket.case_id == case_id
+    )
+    model = Mock()
+    model.bind_tools.return_value.invoke.side_effect = [
+        Mock(tool_calls=[{"name": name, "args": {"case_id": case_id}}])
+        for name in ("order_and_shipment", "resolution_history")
+    ]
+    labeled_decision = Decision(
+        **{
+            key: label[key]
+            for key in ("action", "refund_sar", "requires_review", "policy_ref")
+        },
+        rationale="Fixture decision.",
+    )
+    final_request = model.with_structured_output.return_value.invoke
+    final_request.return_value = labeled_decision
+    recommend(case, model, with_tools=with_tools)
+    _, human = final_request.call_args.args[0]
+    evidence = json.loads(human[1])["evidence"]
+    assert evidence["seconds_since_delivery"] == seconds
+    assert evidence["policy_facts"] == {
+        "completed_same_issue_resolution": False,
+        "proof_assessment": proof,
+        "delivery_wait_elapsed": elapsed,
+        "order_above_review_threshold": above_threshold,
+    }
+    assert expected(case) == labeled_decision.fields()
 
 
 def test_recommendation_and_manual_fallback(client: TestClient):
@@ -70,8 +118,6 @@ def test_late_recommendation_cannot_replace_manual_decision(client: TestClient):
 
 
 def test_queue_prepares_and_reuses_valid_recommendations(client: TestClient):
-    from backend.policy import expected
-
     attempts: list[str] = []
 
     def provider(case: Evidence) -> Decision:

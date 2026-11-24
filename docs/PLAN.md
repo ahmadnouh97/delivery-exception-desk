@@ -1,5 +1,10 @@
 # Delivery Exception Desk pilot plan
 
+## November 23 recommendation follow-up
+
+- [x] Give both recommendation workflows explicit report-time facts for the P1 completion check, P2 proof and wait checks, and P5 threshold.
+- [x] Verify the four reported cases against their fixtures and run the full project check.
+
 The [active UI and UX milestone](#ui-and-ux-improvement-plan) follows the original pilot phases below.
 
 Build a local review workspace for missing deliveries and returns to sender. Use the 24 synthetic, prepaid, single-item cases in the working queue, with 12 tickets in each language.

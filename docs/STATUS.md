@@ -60,3 +60,10 @@ predictions for withholding.
 
 The report includes per-field scores, language and difficulty breakdowns,
 and a grounding review of every case with a field mismatch.
+
+On 24 November, both workflows received explicit facts about the elapsed wait,
+proof assessment, completed same-issue resolutions, and order value threshold.
+A focused Groq replay matched all four decision fields on DED-1006, DED-1031,
+DED-4003, and DED-4005 in both workflows (8/8 predictions). The 66-case scores
+above are from the 23 November run. Run the offline regressions with
+`uv run -m pytest backend/tests/test_recommendations.py -k november_policy_facts`.
