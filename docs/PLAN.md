@@ -2,6 +2,8 @@
 
 ## Groq rate-limit recovery
 
+- [x] Reproduce repeated two-second upstream limits and verify the queue reaches the next case.
+
 - [x] Log provider failures and share the upstream retry interval between queue preparation and case requests.
 - [x] Verify interrupted queue work resumes, cooldown requests avoid the provider, and the bilingual dashboard preserves manual review.
 - [x] Run the full project check.

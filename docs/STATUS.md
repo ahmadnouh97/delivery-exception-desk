@@ -10,7 +10,10 @@ on startup. Set `DELIVERY_DB` to use another file. Existing decisions survive re
   `GROQ_API_KEY` from the environment or the repository's `.env`.
 - A Groq 429 pauses new recommendation generation across the local backend
   process. The queue retries the interrupted case after Groq's `Retry-After`
-  interval (60 seconds if absent or unreadable). Uncached requests receive
+  interval in seconds (60 seconds if absent or unreadable). For repeated
+  limits, the worker doubles the second delay. After three rate-limited
+  attempts on a case in one queue pass, it leaves the case open for manual
+  review or on-demand retry and moves on after the shared cooldown. Uncached requests receive
   HTTP 429 with the remaining interval. The dashboard shows a retry countdown
   and offers manual review. Provider failure logs include the case ID,
   exception type, upstream status, and retry header.

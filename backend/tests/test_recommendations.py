@@ -70,6 +70,52 @@ def test_queue_retries_same_case_after_shared_cooldown(client, monkeypatch, capl
     )
 
 
+def test_repeated_two_second_limits_do_not_block_next_case(client, monkeypatch):
+    now = 100
+    monkeypatch.setattr("backend.main.monotonic", lambda: now)
+    monkeypatch.setattr("backend.main.cooldown_until", 0)
+    attempts = []
+    waits = []
+    stop = Mock(spec=Event)
+    stop.is_set.return_value = False
+
+    def wait(seconds):
+        nonlocal now
+        waits.append(seconds)
+        now += seconds
+        return False
+
+    stop.wait.side_effect = wait
+
+    def provider(case: Evidence) -> Decision:
+        attempts.append(case.ticket.case_id)
+        if case.ticket.case_id == "DED-2023":
+            assert attempts.count("DED-2023") <= 3
+            raise RateLimitError(
+                "Too many requests",
+                response=httpx.Response(
+                    429,
+                    headers={"Retry-After": "2"},
+                    request=httpx.Request("POST", "https://example.test"),
+                ),
+                body=None,
+            )
+        action, amount, review, ref = expected(case)
+        return Decision(
+            action=action,
+            refund_sar=float(amount),
+            requires_review=review,
+            policy_ref=ref,
+            rationale="Based on report-time evidence.",
+        )
+
+    prepare_queue(stop, provider)
+    assert waits == [2, 4, 2]
+    assert attempts[-4:] == ["DED-2023"] * 3 + ["DED-2024"]
+    assert client.get("/api/cases/DED-2023").json()["recommendation"] is None
+    assert client.get("/api/cases/DED-2024").json()["recommendation"] is not None
+
+
 @pytest.mark.parametrize("with_tools", [False, True])
 @pytest.mark.parametrize(
     ("case_id", "seconds", "proof", "elapsed", "above_threshold"),

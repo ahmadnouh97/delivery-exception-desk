@@ -6,7 +6,7 @@ import sqlite3
 from collections.abc import AsyncIterator
 from contextlib import asynccontextmanager
 from email.utils import parsedate_to_datetime
-from threading import Event, Lock
+from threading import TIMEOUT_MAX, Event, Lock
 from time import monotonic, time
 from typing import Annotated
 
@@ -23,6 +23,7 @@ case_locks: dict[str, Lock] = {}
 cooldown_lock = Lock()
 cooldown_until = 0.0
 logger = logging.getLogger(__name__)
+MAX_BACKGROUND_ATTEMPTS = 3
 
 
 def retry_delay(header: str | None) -> int:
@@ -39,7 +40,7 @@ def retry_delay(header: str | None) -> int:
     return 60
 
 
-def check_cooldown(extend_by: int = 0) -> None:
+def check_cooldown(extend_by: int = 0, *, cause: APIStatusError | None = None) -> None:
     global cooldown_until
     with cooldown_lock:
         now = monotonic()
@@ -51,7 +52,7 @@ def check_cooldown(extend_by: int = 0) -> None:
             429,
             f"Recommendation rate-limited. Retry in {remaining} seconds.",
             headers={"Retry-After": str(remaining)},
-        )
+        ) from cause
 
 
 def prepare_queue(stop: Event, provider: Provider) -> None:
@@ -60,14 +61,25 @@ def prepare_queue(stop: Event, provider: Provider) -> None:
             "SELECT case_id FROM cases WHERE status = 'waiting' AND recommendation IS NULL ORDER BY case_id"
         ).fetchall()
     for row in rows:
+        failures = 0
         while not stop.is_set():
             try:
                 generate(row["case_id"], provider)
                 break
             except HTTPException as error:
                 if error.status_code == 429 and error.headers:
-                    # Recheck long cooldowns periodically and wake immediately on shutdown.
-                    if stop.wait(min(3600, int(error.headers["Retry-After"]))):
+                    delay = int(error.headers["Retry-After"])
+                    if isinstance(error.__cause__, APIStatusError):
+                        failures += 1
+                        if failures >= MAX_BACKGROUND_ATTEMPTS:
+                            logger.warning(
+                                "Deferred %s after %s rate-limited attempts",
+                                row["case_id"],
+                                failures,
+                            )
+                            break
+                        delay *= 2 ** (failures - 1)
+                    if stop.wait(min(TIMEOUT_MAX, delay)):
                         return
                     continue
                 logger.info("Skipped %s (HTTP %s)", row["case_id"], error.status_code)
@@ -176,8 +188,8 @@ def prepare_case(case_id: str, provider: Provider) -> Decision:
             status,
             retry_after,
         )
-        if status == 429:
-            check_cooldown(retry_delay(retry_after))
+        if isinstance(error, APIStatusError) and status == 429:
+            check_cooldown(retry_delay(retry_after), cause=error)
         raise HTTPException(
             503, "Recommendation unavailable. Retry or record a manual decision."
         ) from error
